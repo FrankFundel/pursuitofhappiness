@@ -8,7 +8,7 @@ import { enableScreens } from 'react-native-screens';
 
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from './screens/LoginScreen';
-import SignupScreen from './screens/SignupScreen';
+import SignUpScreen from './screens/SignUpScreen';
 
 import { Colors, Fonts } from './styles';
 
@@ -145,7 +145,7 @@ const MainWrapperStack = createStack({
 const LoginStack = createStack({
   Start: StartScreen,
   Login: LoginScreen,
-  Signup: SignupScreen,
+  SignUp: SignUpScreen,
 },
 {
   initialRouteName: 'Start',
