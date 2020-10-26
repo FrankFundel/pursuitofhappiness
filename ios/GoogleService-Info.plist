@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1084703184502-6ohqri4m8djd3a5osgccqr4mf3t8gutd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1084703184502-6ohqri4m8djd3a5osgccqr4mf3t8gutd</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDfm75HbzHi3SZs-fHZA-CT-tXUT8JxoGU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1084703184502</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hadros.pursuitofhappiness</string>
+	<key>PROJECT_ID</key>
+	<string>pursuitofhappiness-com</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pursuitofhappiness-com.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1084703184502:ios:1e2be5e707696fb617b157</string>
+	<key>DATABASE_URL</key>
+	<string>https://pursuitofhappiness-com.firebaseio.com</string>
+</dict>
+</plist>

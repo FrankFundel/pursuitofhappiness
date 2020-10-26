@@ -12,6 +12,10 @@ target 'pursuitofhappiness' do
     inherit! :complete
     # Pods for testing
   end
+  
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
 
   # Enables Flipper.
   #
