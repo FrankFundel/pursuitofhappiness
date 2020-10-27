@@ -4,15 +4,15 @@ export const Colors = {
   Black: "#000",
   White: "#FFF",
 
-  ExtraDark: "#020F1C",
-  Dark: "#104D87",
-  Normal: "#0967D2",
-  Light: "#2186EB",
-  ExtraLight: "#5294DF",
+  ExtraDark: "#167f85",
+  Dark: "#1a949c",
+  Normal: "#1ea9b2",
+  Light: "#22bec8",
+  ExtraLight: "#26D4DF",
 
-  SecondaryLight: "#0BF39F",
-  Secondary: "#09D289",
-  SecondaryDark: "#05B676",
+  SecondaryLight: "#ffff6e",
+  Secondary: "#ffff4b",
+  SecondaryDark: "#e5e543",
 
   ExtraDarkGray: "#1A1A1A",
   DarkGray: "#242424",
@@ -72,23 +72,23 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: Colors.White,
   },
   scrollContainer: {
     paddingBottom: 124,
-    backgroundColor: "#000",
+    backgroundColor: Colors.White,
     flexGrow: 1,
   },
   viewContainer: {
     paddingBottom: 124,
-    backgroundColor: "#000",
+    backgroundColor: Colors.White,
   },
   headerButtonImage: {
     width: 24,
     height: 24
   },
   headerButtonText: {
-    color: "#fff",
+    color: Colors.Black,
     fontSize: 16,
     ...Fonts.medium
   },
@@ -144,7 +144,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   headline: {
-    color: "#fff",
+    color: Colors.Black,
     fontSize: 20,
     marginHorizontal: 16,
     ...Fonts.headlineSemibold,
@@ -260,7 +260,7 @@ export const actionStyles = {
 export const cardStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: Colors.White,
   },
   transparentContainer: {
     position: 'absolute',

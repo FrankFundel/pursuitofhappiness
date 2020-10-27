@@ -3,8 +3,8 @@ import { StyleSheet, View, Image, Text, StatusBar, Platform } from 'react-native
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from 'react-navigation-stack';
 import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
-//import { createBottomTabNavigator } from 'react-navigation-tabs';
-//import { enableScreens } from 'react-native-screens';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { enableScreens } from 'react-native-screens';
 
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import HomeScreen from "./screens/HomeScreen";
@@ -13,11 +13,11 @@ import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
 import { Colors, Fonts } from './styles';
-//import * as RNLocalize from 'react-native-localize';
-//import i18n from 'i18n-js';
-//import memoize from 'lodash.memoize';
+import * as RNLocalize from 'react-native-localize';
+import i18n from 'i18n-js';
+import memoize from 'lodash.memoize';
 
-/*const translationGetters = {
+const translationGetters = {
   en: () => require('./src/translations/en.json'),
   de: () => require('./src/translations/de.json'),
 }
@@ -37,14 +37,14 @@ const setI18nConfig = () => {
 
   i18n.translations = { [languageTag]: translationGetters[languageTag]() };
   i18n.locale = languageTag;
-}*/
+}
 
 const createStack = Platform.select({ ios: createNativeStackNavigator, android: createStackNavigator});
 
 export default class App extends React.Component {
-  /*constructor() {
+  constructor() {
     super();
-    console.disableYellowBox = true;
+    //console.disableYellowBox = true;
     if(Platform.OS === 'ios') {
       enableScreens();
     }
@@ -53,7 +53,6 @@ export default class App extends React.Component {
   
   componentDidMount() {
     RNLocalize.addEventListener('change', this.handleLocalizationChange);
-    console.log("hey");
   }
 
   componentWillUnmount() {
@@ -66,12 +65,12 @@ export default class App extends React.Component {
     .catch(error => {
       console.error(error)
     });
-  }*/
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={Colors.Black} barStyle="dark-content" />
+        <StatusBar backgroundColor={Colors.White} barStyle="dark-content" />
 
         <AppContainer />
       </View>
@@ -81,19 +80,17 @@ export default class App extends React.Component {
 
 const defaultNavigationOptions = Platform.select({
   android: {
-    headerTintColor: Colors.White,
+    headerTintColor: Colors.DarkGray,
     headerStyle: {
-      backgroundColor: Colors.Black,
+      backgroundColor: Colors.White,
     },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   },
   ios: {
-    headerTintColor: Colors.White,
+    headerTintColor: Colors.DarkGray,
     largeTitle: true,
-    translucent: true,
     headerStyle: {
-      blurEffect: 'prominent',
-      backgroundColor: 'transparent',
+      backgroundColor: Colors.White,
     },
     headerLargeTitleStyle: {
       fontFamily: "SFProDisplay-Bold",
@@ -118,9 +115,8 @@ const TabNavigator = createBottomTabNavigator({
   tabBarOptions: {
     showLabel: false,
     style: {
-      height: 50,
-      backgroundColor: "transparent",
-      borderTopWidth: 0,
+      height: 64,
+      backgroundColor: Colors.White,
     }
   },
 });
@@ -163,7 +159,7 @@ const LoginStack = createStack({
       },
       android: {
         headerStyle: {
-          backgroundColor: Colors.ExtraDarkGray,
+          backgroundColor: Colors.White,
         }
       }
     })
@@ -205,20 +201,20 @@ const AppContainer = createAppContainer(AppNavigator);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Black,
+    backgroundColor: Colors.White,
   },
   tabBarIcon: {
-    width: 24,
-    height: 24,
+    width: 40,
+    height: 40,
     resizeMode: 'contain',
   },
   tabBarLabel: {
     marginBottom: 1,
     fontSize: 11,
-    color: Colors.White,
+    color: Colors.ExtraLightGray,
     textAlign: 'center'
   },
   tabBarLabelActive: {
-    color: Colors.White
+    color: Colors.DarkGray
   }
 });
