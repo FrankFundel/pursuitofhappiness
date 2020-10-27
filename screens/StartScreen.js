@@ -28,9 +28,6 @@ export default class StartScreen extends React.Component {
       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
     });
   
-    // get current authentication state for user
-    const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
-    
     // Ensure Apple returned a user identityToken
     if (!appleAuthRequestResponse.identityToken) {
       throw 'Apple Sign-In failed - no identify token returned';
@@ -50,14 +47,12 @@ export default class StartScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer} >
-        {/*<Image source={require("../assets/startbg.png")} style={startStyles.startBg} />*/}
-
         <View style={startStyles.contentContainer}>
-          {/*<Image source={require("../assets/logoAlpha.png")} style={startStyles.logo} />*/}
+          <Image source={require("../assets/iconAlpha.png")} style={startStyles.logo} />
 
-          {/*<Text style={startStyles.headline}>{translate("Listen and Share Your Favorite Hits With People")}</Text>*/}
+          <Text style={startStyles.headline}>{translate("Brighten Your Life")}</Text>
 
-          <TouchableOpacity style={[styles.button, {backgroundColor: Colors.Active, height: 50, marginTop: 32}]} onPress={() => this.props.navigation.navigate("Signup")} activeOpacity={0.8}>
+          <TouchableOpacity style={[styles.button, {backgroundColor: Colors.Active, height: 50, marginTop: 32}]} onPress={() => this.props.navigation.navigate("SignUp")} activeOpacity={0.8}>
             <Text style={[styles.buttonText, {color: Colors.White, fontSize: 17, ...Fonts.semibold}]}>{translate("Register")}</Text>
           </TouchableOpacity>
 

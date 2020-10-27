@@ -18,6 +18,7 @@ export const Colors = {
   DarkGray: "#242424",
   LightGray: "#BCBCBC",
   ExtraLightGray: "#D8D8D8",
+  WhiteGray: "#F2F2F2",
 
   Destructive: "#FF554C",
   Active: "#0A84FF",
@@ -131,7 +132,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent",
     paddingVertical: 14,
     paddingHorizontal: 16,
-    color: Colors.White,
+    color: Colors.DarkGray,
     ...Fonts.regular,
     lineHeight: 20,
     fontSize: 17,
@@ -141,7 +142,12 @@ export const styles = StyleSheet.create({
   },
   infoText: {
     color: Colors.ExtraDark,
+    ...Fonts.regular,
     textAlign: "center",
+  },
+  text: {
+    color: Colors.Black,
+    ...Fonts.regular,
   },
   headline: {
     color: Colors.Black,
@@ -175,7 +181,7 @@ export const profileStyles = StyleSheet.create({
     alignSelf: "center",
   },
   userName: {
-    color: Colors.White,
+    color: Colors.DarkGray,
     fontSize: 23,
     ...Fonts.headlineSemibold,
     //lineHeight: 24,
@@ -183,7 +189,7 @@ export const profileStyles = StyleSheet.create({
     width: 150
   },
   subTitle: {
-    color: Colors.Secondary,
+    color: Colors.Normal,
     fontSize: 15,
     ...Fonts.regular,
     lineHeight: 20,
@@ -380,13 +386,13 @@ export const chatStyles = StyleSheet.create({
     minHeight: 36,
     maxHeight: 120,
     borderRadius: 8,
-    backgroundColor: Colors.ExtraDarkGray,
+    backgroundColor: Colors.White,
     borderWidth: 0.5,
     borderColor: Colors.DarkGray,
     paddingHorizontal: 12,
     paddingTop: 8,
     paddingBottom: 4,
-    color: "#fff",
+    color: Colors.DarkGray,
     overflow: "hidden",
 
     fontSize: 17,
@@ -433,7 +439,7 @@ export const startStyles = StyleSheet.create({
     height: "100%",
   },
   headline: {
-    color: Colors.White,
+    color: Colors.Black,
     textAlign: "left",
     fontSize: 34,
     lineHeight: 41,

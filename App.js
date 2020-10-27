@@ -8,6 +8,7 @@ import { enableScreens } from 'react-native-screens';
 
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import HomeScreen from "./screens/HomeScreen";
+import JournalScreen from "./screens/JournalScreen";
 import StartScreen from './screens/StartScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -81,15 +82,16 @@ export default class App extends React.Component {
 
 const defaultNavigationOptions = Platform.select({
   android: {
-    headerTintColor: Colors.LightGray,
+    headerTintColor: Colors.Black,
     headerStyle: {
       backgroundColor: Colors.White,
     },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   },
   ios: {
-    headerTintColor: Colors.LightGray,
+    headerTintColor: Colors.Black,
     largeTitle: true,
+    translucent: true, //for better scroll
     headerStyle: {
       backgroundColor: Colors.White,
     },
@@ -109,8 +111,18 @@ const HomeStack = createStack({
   navigationOptions: getTabBarOptions("Home", require('./assets/Home_Active.png'), require('./assets/Home_Inactive.png'))
 });
 
+const JournalStack = createStack({
+  Journal: JournalScreen,
+},
+{
+  initialRouteName: 'Journal',
+  defaultNavigationOptions,
+  navigationOptions: getTabBarOptions("Journal", require('./assets/Journal_Active.png'), require('./assets/Journal_Inactive.png'))
+});
+
 const TabNavigator = createBottomTabNavigator({
   HomeStack,
+  JournalStack,
 },
 {
   initialRouteName: 'HomeStack',
