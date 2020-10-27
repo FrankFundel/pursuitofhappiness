@@ -16,6 +16,7 @@ import { Colors, Fonts } from './styles';
 import * as RNLocalize from 'react-native-localize';
 import i18n from 'i18n-js';
 import memoize from 'lodash.memoize';
+import AccountScreen from './screens/AccountScreen';
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -44,7 +45,7 @@ const createStack = Platform.select({ ios: createNativeStackNavigator, android: 
 export default class App extends React.Component {
   constructor() {
     super();
-    //console.disableYellowBox = true;
+    console.disableYellowBox = true;
     if(Platform.OS === 'ios') {
       enableScreens();
     }
@@ -80,14 +81,14 @@ export default class App extends React.Component {
 
 const defaultNavigationOptions = Platform.select({
   android: {
-    headerTintColor: Colors.DarkGray,
+    headerTintColor: Colors.LightGray,
     headerStyle: {
       backgroundColor: Colors.White,
     },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   },
   ios: {
-    headerTintColor: Colors.DarkGray,
+    headerTintColor: Colors.LightGray,
     largeTitle: true,
     headerStyle: {
       backgroundColor: Colors.White,
@@ -100,6 +101,7 @@ const defaultNavigationOptions = Platform.select({
 
 const HomeStack = createStack({
   Home: HomeScreen,
+  Account: AccountScreen,
 },
 {
   initialRouteName: 'Home',

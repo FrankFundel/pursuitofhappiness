@@ -16,7 +16,7 @@ export const Colors = {
 
   ExtraDarkGray: "#1A1A1A",
   DarkGray: "#242424",
-  LightGray: "#8D8D8D",
+  LightGray: "#BCBCBC",
   ExtraLightGray: "#D8D8D8",
 
   Destructive: "#FF554C",
