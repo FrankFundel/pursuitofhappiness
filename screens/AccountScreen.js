@@ -1,6 +1,24 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { styles, Colors, Fonts } from '../styles';
+import { StyleSheet, View, TouchableOpacity, Text, Image, TextInput } from 'react-native';
+import { styles, actionStyles, Colors, profileStyles, Fonts } from '../styles';
+
+import Icon from 'react-native-vector-icons';
+import IconActionSheet from 'react-native-icon-action-sheet';
+import ImagePicker from 'react-native-image-crop-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+
+import CachedImage from '../components/CachedImage';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import {translate} from "../App";
+
+const options = {
+  width: 256,
+  height: 256,
+  cropping: true,
+  cropperCircleOverlay: true,
+};
 
 export default class AccountScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -108,9 +126,62 @@ export default class AccountScreen extends React.Component {
       });
   }
 
+
   render() {
-    return <View style={styles.mainContainer}>
-      
-    </View>
+    const {image, name, email, points, level, tracksCount, playlistsCount} = this.state;
+
+    return (
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardOpeningTime={0}
+        showsVerticalScrollIndicator={false}
+        contentInsetAdjustmentBehavior="automatic">
+
+        <View style={{flexDirection: "row", padding: 24}}>
+          <AnimatedCircularProgress size={124} width={8} fill={points / (level+1)} backgroundColor={Colors.ExtraDarkGray} tintColor={Colors.Secondary} lineCap={"round"}>
+            {
+              (fill) => (
+                <TouchableOpacity onPress={this.showImageSheet} activeOpacity={0.8}>
+                  <CachedImage style={profileStyles.userImage} image={image} defaultSource={require("../assets/user.png")} />
+                </TouchableOpacity>
+              )
+            }
+          </AnimatedCircularProgress>
+          
+          <View style={{marginLeft: 24, marginTop: 12}}>
+            <TextInput
+              style={profileStyles.userName}
+              placeholder={translate("Username")}
+              placeholderTextColor={Colors.LightGray}
+              onChangeText={name => this.setState({ name })}
+              value={name}
+              maxLength={14}
+              multiline
+            />
+            <Text style={profileStyles.subTitle}>{translate("Level") + " " + level + " • " + points + " " + translate("Points")}</Text>
+          </View>
+        </View>
+
+        <View style={{paddingHorizontal: 16}}>
+          <TextInput
+            style={[styles.textInput, {borderColor: name ? Colors.Active : Colors.LightGray}]}
+            placeholder={translate("Username")}
+            placeholderTextColor={Colors.LightGray}
+            onChangeText={name => this.setState({ name })}
+            value={name}
+            maxLength={28}
+          />
+
+          <TextInput
+            style={[styles.textInput, {borderColor: Colors.LightGray}]}
+            placeholder={translate("E-Mail")}
+            placeholderTextColor={Colors.LightGray}
+            onChangeText={email => this.setState({ email })}
+            value={email}
+            editable={false}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+    )
   }
 }
