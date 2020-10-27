@@ -31,7 +31,7 @@ export default class JournalScreen extends React.Component {
     this.weeks = {};
   }
 
-  addToWeek = (id, text) => {
+  addContent = (id, text) => {
     var week = this.weeks[id];
     if(!week.content) {
       PursuitOfHappiness.Database.journalRef.child(id).child("content").set([text]);
@@ -39,6 +39,10 @@ export default class JournalScreen extends React.Component {
       PursuitOfHappiness.Database.journalRef.child(id).child("content").child(week.content.length.toString()).set(text);
     }
     this.setState({text: ""});
+  }
+  
+  removeContent = (id, index) => {
+    PursuitOfHappiness.Database.journalRef.child(id).child("content").child(index.toString()).remove();
   }
 
   renderHeader = (id, index, isActive) => {
@@ -52,40 +56,21 @@ export default class JournalScreen extends React.Component {
     return <ListItem title={title} isActive={isActive} />;
   }
 
-  renderContent = (text, index) => {
+  renderContent = (id, text, index) => {
     return <PeekAndPop
-      renderPreview={() => <View style={journalStyle.content} key={index}>
-        <Text style={styles.text}>{text}</Text>
+      key={index}
+      renderPreview={() =>
+      <View style={[journalStyle.content, {flex: 1}]} key={index}>
+        <Text style={[styles.text, {fontSize: 40}]}>{text}</Text>
       </View>}
-      key={"source"}
       onPeek={() => console.log('onPeek')}
       onPop={() => console.log("onPop")}
       onDisappear={() => console.log('onDisappear')}
       previewActions={[
         {
           type: 'destructive',
-          caption: 'remove',
-          action: () => console.warn('1'),
-        },
-        {
-          type: 'destructive',
-          caption: 'remove2',
-          action: () => console.warn('2'),
-        },
-        {
-          caption: 'group',
-          group: [
-            {
-              type: 'selected',
-              caption: 'selected',
-              action: () => console.warn('3'),
-            },
-            {
-              type: 'selected',
-              caption: 'selected2',
-              action: () => console.warn('4'),
-            },
-          ],
+          label: translate("Remove"),
+          onPress: () => this.removeContent(id, index),
         },
       ]}>
         <View style={journalStyle.content} key={index}>
@@ -101,14 +86,14 @@ export default class JournalScreen extends React.Component {
       <View style={{margin: 16}}>
         <Text style={[styles.headline, {fontSize: 20, marginBottom: 12}]}>{translate("I am grateful for")}</Text>
 
-        {week.content && week.content.map((text, index) => this.renderContent(text, index))}
+        {week.content && week.content.map((text, index) => this.renderContent(id, text, index))}
         
         <TextInput
           style={[styles.textInput, {borderColor: this.state.text ? Colors.Active : Colors.LightGray}]}
           placeholder={translate("What made you happy?")}
           placeholderTextColor={Colors.LightGray}
           onChangeText={text => this.setState({ text })}
-          onSubmitEditing={event => this.addToWeek(id, event.nativeEvent.text)}
+          onSubmitEditing={event => this.addContent(id, event.nativeEvent.text)}
           value={this.state.text}
           returnKeyType="done"
         />
@@ -119,7 +104,7 @@ export default class JournalScreen extends React.Component {
   componentDidMount = () => {
     PursuitOfHappiness.Database.journalRef.on("value", snapshot => {
       this.weeks = snapshot.val();
-      this.setState({weeks: this.weeks ? Object.keys(this.weeks) : []}, () => {
+      this.setState({weeks: this.weeks ? Object.keys(this.weeks).reverse() : []}, () => {
         const weeks = this.state.weeks;
         if(!weeks || this.weeks[weeks[weeks.length-1]].cw != CW) {
           PursuitOfHappiness.Database.journalRef.push({
