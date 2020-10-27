@@ -21,6 +21,7 @@
     "@react-native-firebase/functions": "^7.4.9",
     "@react-native-firebase/messaging": "^7.9.1",
     "@react-native-firebase/storage": "^7.4.10",
+    "@react-navigation/native": "^5.8.0",
     "i18n-js": "^3.8.0",
     "lodash.memoize": "^4.1.2",
     "lottie-ios": "^3.1.8",

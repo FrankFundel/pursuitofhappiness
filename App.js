@@ -3,20 +3,21 @@ import { StyleSheet, View, Image, Text, StatusBar, Platform } from 'react-native
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from 'react-navigation-stack';
 import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { enableScreens } from 'react-native-screens';
+//import { createBottomTabNavigator } from 'react-navigation-tabs';
+//import { enableScreens } from 'react-native-screens';
 
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import HomeScreen from "./screens/HomeScreen";
+import StartScreen from './screens/StartScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
 import { Colors, Fonts } from './styles';
+//import * as RNLocalize from 'react-native-localize';
+//import i18n from 'i18n-js';
+//import memoize from 'lodash.memoize';
 
-import * as RNLocalize from 'react-native-localize'
-import i18n from 'i18n-js';
-import memoize from 'lodash.memoize';
-
-const translationGetters = {
+/*const translationGetters = {
   en: () => require('./src/translations/en.json'),
   de: () => require('./src/translations/de.json'),
 }
@@ -36,12 +37,12 @@ const setI18nConfig = () => {
 
   i18n.translations = { [languageTag]: translationGetters[languageTag]() };
   i18n.locale = languageTag;
-}
+}*/
 
 const createStack = Platform.select({ ios: createNativeStackNavigator, android: createStackNavigator});
 
 export default class App extends React.Component {
-  constructor() {
+  /*constructor() {
     super();
     console.disableYellowBox = true;
     if(Platform.OS === 'ios') {
@@ -52,6 +53,7 @@ export default class App extends React.Component {
   
   componentDidMount() {
     RNLocalize.addEventListener('change', this.handleLocalizationChange);
+    console.log("hey");
   }
 
   componentWillUnmount() {
@@ -64,12 +66,12 @@ export default class App extends React.Component {
     .catch(error => {
       console.error(error)
     });
-  }
+  }*/
 
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={Colors.Black} barStyle="light-content" />
+        <StatusBar backgroundColor={Colors.Black} barStyle="dark-content" />
 
         <AppContainer />
       </View>
