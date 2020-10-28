@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { styles, Colors, Fonts, startStyles } from '../styles';
+import { styles, Colors, Fonts, journalStyle } from '../styles';
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
 import Accordion from 'react-native-collapsible/Accordion';
-import ListItem from '../components/ListItem';
+import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
 import PeekAndPop from '@react-native-community/peek-and-pop';
@@ -25,7 +25,7 @@ export default class JournalScreen extends React.Component {
     this.state = {
       text: "",
       weeks: [],
-      activeSections: [],
+      activeSections: [0],
     };
 
     this.weeks = {};
@@ -53,7 +53,7 @@ export default class JournalScreen extends React.Component {
     } else {
       title = translate("CW") + " " + week.cw;
     }
-    return <ListItem title={title} isActive={isActive} />;
+    return <Section title={title} isActive={isActive} />;
   }
 
   renderContent = (id, text, index) => {
@@ -106,7 +106,7 @@ export default class JournalScreen extends React.Component {
       this.weeks = snapshot.val();
       this.setState({weeks: this.weeks ? Object.keys(this.weeks).reverse() : []}, () => {
         const weeks = this.state.weeks;
-        if(!weeks || this.weeks[weeks[weeks.length-1]].cw != CW) {
+        if(weeks.length == 0 || this.weeks[weeks[weeks.length-1]].cw != CW) {
           PursuitOfHappiness.Database.journalRef.push({
             cw: CW,
           });
@@ -132,9 +132,3 @@ export default class JournalScreen extends React.Component {
     </KeyboardAwareScrollView>
   }
 }
-
-const journalStyle = StyleSheet.create({
-  content: {
-    padding: 12, backgroundColor: Colors.WhiteGray, borderRadius: 10, marginBottom: 4
-  }
-});

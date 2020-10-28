@@ -43,10 +43,10 @@ export default class AuthLoadingScreen extends React.Component {
     var token = await AsyncStorage.getItem('@token');
     if (!token) {
       token = await messaging().getToken();
-      if (token) {
-        database().ref("users").child(this.uid).update({fcm_token: token});
-        await AsyncStorage.setItem('@token', token);
-      }
+    }
+    if(token) {
+      database().ref("users").child(this.uid).update({fcm_token: token});
+      await AsyncStorage.setItem('@token', token);
     }
 
     messaging().subscribeToTopic("all").then(response => {

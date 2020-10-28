@@ -156,8 +156,8 @@ export const styles = StyleSheet.create({
     ...Fonts.headlineSemibold,
     letterSpacing: 0.38
   },
-  tabViewText: {color: Colors.White, fontSize: 17, ...Fonts.semibold, lineHeight: 22, letterSpacing: -0.41},
-  tabViewIndicator: { backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 9.5, height: 30, marginBottom: 8 },
+  tabViewText: {color: Colors.Black, fontSize: 17, ...Fonts.semibold, lineHeight: 22, letterSpacing: -0.41},
+  tabViewIndicator: { backgroundColor: 'rgba(100,100,100,0.1)', borderRadius: 9.5, height: 30, marginBottom: 8 },
   map: {
     flex: 1,
   },
@@ -738,4 +738,10 @@ export const playerStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.3)"
   },
+});
+
+export const journalStyle = StyleSheet.create({
+  content: {
+    padding: 12, backgroundColor: Colors.WhiteGray, borderRadius: 10, marginBottom: 4
+  }
 });

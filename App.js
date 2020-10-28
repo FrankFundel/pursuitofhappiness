@@ -12,12 +12,13 @@ import JournalScreen from "./screens/JournalScreen";
 import StartScreen from './screens/StartScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import AccountScreen from './screens/AccountScreen';
+import TodoScreen from './screens/ToDoScreen';
 
 import { Colors, Fonts } from './styles';
 import * as RNLocalize from 'react-native-localize';
 import i18n from 'i18n-js';
 import memoize from 'lodash.memoize';
-import AccountScreen from './screens/AccountScreen';
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -120,9 +121,19 @@ const JournalStack = createStack({
   navigationOptions: getTabBarOptions("Journal", require('./assets/Journal_Active.png'), require('./assets/Journal_Inactive.png'))
 });
 
+const ToDoStack = createStack({
+  ToDo: TodoScreen,
+},
+{
+  initialRouteName: 'ToDo',
+  defaultNavigationOptions,
+  navigationOptions: getTabBarOptions("ToDo", require('./assets/ToDo_Active.png'), require('./assets/ToDo_Inactive.png'))
+});
+
 const TabNavigator = createBottomTabNavigator({
   HomeStack,
   JournalStack,
+  ToDoStack,
 },
 {
   initialRouteName: 'HomeStack',
