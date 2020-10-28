@@ -15,6 +15,8 @@ export class Database {
       this.userRef = database().ref("users").child(this.user.uid);
       this.journalRef = database().ref("journals").child(this.user.uid);
       this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
+      this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
+      this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
     }
 
     auth().onAuthStateChanged(user => {
@@ -23,6 +25,8 @@ export class Database {
         this.userRef = database().ref("users").child(this.user.uid);
         this.journalRef = database().ref("journals").child(this.user.uid);
         this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
+        this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
+        this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
       }
     })
   }
@@ -31,6 +35,8 @@ export class Database {
 export class PursuitOfHappiness {
   constructor() {
     this.Database = new Database(this);
+
+    this.blurApp = () => {};
   }
 }
 

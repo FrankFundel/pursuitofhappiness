@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, StatusBar, Platform } from 'react-native';
+import { StyleSheet, View, Image, Text, StatusBar, Platform, Animated } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from 'react-navigation-stack';
 import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
@@ -19,6 +19,10 @@ import { Colors, Fonts } from './styles';
 import * as RNLocalize from 'react-native-localize';
 import i18n from 'i18n-js';
 import memoize from 'lodash.memoize';
+import { BlurView } from '@react-native-community/blur';
+import PursuitOfHappiness from './modules/PursuitOfHappiness';
+
+const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -52,6 +56,16 @@ export default class App extends React.Component {
       enableScreens();
     }
     setI18nConfig();
+
+    this.animatedBlur = new Animated.Value(0);
+
+    PursuitOfHappiness.blurApp = state => {
+      Animated.timing(this.animatedBlur, {
+        toValue: state ? 1 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
   }
   
   componentDidMount() {
@@ -76,6 +90,8 @@ export default class App extends React.Component {
         <StatusBar backgroundColor={Colors.White} barStyle="dark-content" />
 
         <AppContainer />
+
+        <AnimatedBlurView style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, opacity: this.animatedBlur}} blurType="light" />
       </View>
     );
   }

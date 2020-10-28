@@ -8,6 +8,7 @@ import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
 import PeekAndPop from '@react-native-community/peek-and-pop';
+import LottieView from 'lottie-react-native';
 
 const CW = moment().week();
 
@@ -24,6 +25,7 @@ export default class JournalScreen extends React.Component {
     super(props);
     this.state = {
       text: "",
+      textHeight: 48,
       weeks: [],
       activeSections: [0],
     };
@@ -32,13 +34,14 @@ export default class JournalScreen extends React.Component {
   }
 
   addContent = (id, text) => {
-    var week = this.weeks[id];
-    if(!week.content) {
-      PursuitOfHappiness.Database.journalRef.child(id).child("content").set([text]);
-    } else {
-      PursuitOfHappiness.Database.journalRef.child(id).child("content").child(week.content.length.toString()).set(text);
+    if(text) {
+      var week = this.weeks[id];
+      if(!week.content) {
+        PursuitOfHappiness.Database.journalRef.child(id).child("content").set([text]);
+      } else {
+        PursuitOfHappiness.Database.journalRef.child(id).child("content").child(week.content.length.toString()).set(text);
+      }
     }
-    this.setState({text: ""});
   }
   
   removeContent = (id, index) => {
@@ -57,45 +60,63 @@ export default class JournalScreen extends React.Component {
   }
 
   renderContent = (id, text, index) => {
-    return <PeekAndPop
-      key={index}
-      renderPreview={() =>
-      <View style={[journalStyle.content, {flex: 1}]} key={index}>
-        <Text style={[styles.text, {fontSize: 40}]}>{text}</Text>
-      </View>}
-      onPeek={() => console.log('onPeek')}
-      onPop={() => console.log("onPop")}
-      onDisappear={() => console.log('onDisappear')}
-      previewActions={[
-        {
-          type: 'destructive',
-          label: translate("Remove"),
-          onPress: () => this.removeContent(id, index),
-        },
-      ]}>
-        <View style={journalStyle.content} key={index}>
-          <Text style={styles.text}>{text}</Text>
-        </View>
-    </PeekAndPop>
+    if(text) {
+      return <PeekAndPop
+        key={index}
+        renderPreview={() =>
+        <View style={journalStyle.contentPeek} key={index}>
+          <LottieView
+            source={require('../assets/lottie/sun.json')}
+            loop
+            autoPlay
+            style={{width: 24, height: 24, marginRight: 8}}
+          />
+
+          <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{text}</Text>
+        </View>}
+        onPeek={() => PursuitOfHappiness.blurApp(true)}
+        onDisappear={() => PursuitOfHappiness.blurApp(false)}
+        previewActions={[
+          {
+            type: 'destructive',
+            label: translate("Remove"),
+            onPress: () => this.removeContent(id, index),
+          },
+        ]}>
+          <View style={journalStyle.content} key={index}>
+            <LottieView
+              source={require('../assets/lottie/sun.json')}
+              loop
+              autoPlay
+              style={{width: 16, height: 16, marginRight: 8}}
+            />
+
+            <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{text}</Text>
+          </View>
+      </PeekAndPop>
+    }
   }
 
   renderWeek = id => {
     const week = this.weeks[id];
 
     return (
-      <View style={{margin: 16}}>
-        <Text style={[styles.headline, {fontSize: 20, marginBottom: 12}]}>{translate("I am grateful for")}</Text>
+      <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
+        <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I am grateful for")}</Text>
 
         {week.content && week.content.map((text, index) => this.renderContent(id, text, index))}
         
         <TextInput
-          style={[styles.textInput, {borderColor: this.state.text ? Colors.Active : Colors.LightGray}]}
+          style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}
           placeholder={translate("What made you happy?")}
           placeholderTextColor={Colors.LightGray}
-          onChangeText={text => this.setState({ text })}
           onSubmitEditing={event => this.addContent(id, event.nativeEvent.text)}
           value={this.state.text}
           returnKeyType="done"
+          blurOnSubmit={false}
+          multiline
+          onContentSizeChange={event => this.setState({ textHeight: event.nativeEvent.contentSize.height + 28 })}
+          onKeyPress={({nativeEvent}) => this.setState({text: nativeEvent.key === 'Enter' ? "" : nativeEvent.text})}
         />
       </View>
     );

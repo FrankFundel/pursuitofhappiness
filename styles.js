@@ -742,6 +742,55 @@ export const playerStyles = StyleSheet.create({
 
 export const journalStyle = StyleSheet.create({
   content: {
-    padding: 12, backgroundColor: Colors.WhiteGray, borderRadius: 10, marginBottom: 4
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderTopWidth: 0.5,
+    borderColor: Colors.ExtraLightGray,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.WhiteGray,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  contentPeek: {
+    margin: 18,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderTopWidth: 0.5,
+    borderColor: Colors.ExtraLightGray,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.WhiteGray,
+    borderRadius: 20,
+    minHeight: 100,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
+  },
+  textInput: {
+    minHeight: 48,
+    maxHeight: 80,
+    backgroundColor: "transparent",
+    paddingTop: 14,
+    paddingHorizontal: 16,
+    color: Colors.DarkGray,
+    ...Fonts.regular,
+    lineHeight: 20,
+    fontSize: 17,
+    letterSpacing: -0.27,
+    borderTopWidth: 0.5,
+    borderColor: Colors.ExtraLightGray
+  },
+  day: {
+    backgroundColor: Colors.WhiteGray,
+    borderRadius: 10,
+    marginBottom: 16,
   }
 });

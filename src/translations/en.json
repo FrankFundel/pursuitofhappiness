@@ -39,8 +39,16 @@
   "What made you happy?": "What made you happy?",
   "This Week": "This Week",
   "CW": "CW",
-  "What do you have to do?": "What do you have to do?",
+  "What do you want to do?": "What do you want to do?",
   "Weekly": "Weekly",
   "Daily": "Daily",
-  "Overall": "Overall"
+  "Overall": "Overall",
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+  "Saturday": "Saturday",
+  "Sunday": "Sunday",
+  "I want to do": "I want to do"
 }

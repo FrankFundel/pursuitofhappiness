@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { styles, Colors, Fonts } from '../styles';
+import { styles, Colors, Fonts, journalStyle } from '../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class ListItem extends React.PureComponent {
@@ -18,15 +18,15 @@ export default class ListItem extends React.PureComponent {
 
   toggleDone = () => {
     if(this.props.done) {
-      this.dropdown.play();
+      this.dropdown.play(24, 100);
     }
   }
 
   render() {
-    const { title, done, onPress } = this.props;
+    const { title, done, onPress, style } = this.props;
 
     return (
-      <TouchableOpacity style={{paddingVertical: 4, flexDirection: "row"}} onPress={onPress}>
+      <TouchableOpacity style={[journalStyle.content, {paddingVertical: 8}, style]} onPress={onPress}>
         <LottieView
           ref={animation => {
             this.dropdown = animation;
@@ -37,7 +37,7 @@ export default class ListItem extends React.PureComponent {
           style={{width: 28, height: 28, marginRight: 4}}
         />
 
-        <Text style={[styles.text, {fontSize: 16, marginTop: 4}]}>{title}</Text>
+        <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{title}</Text>
       </TouchableOpacity>
     );
   };

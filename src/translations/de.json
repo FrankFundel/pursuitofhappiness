@@ -39,8 +39,16 @@
   "What made you happy?": "Was hat dich glücklich gemacht?",
   "This Week": "Diese Woche",
   "CW": "KW",
-  "What do you have to do?": "Was musst du machen?",
+  "What do you want to do?": "Was willst du machen?",
   "Weekly": "Wöchentlich",
   "Daily": "Täglich",
-  "Overall": "Gesamt"
+  "Overall": "Gesamt",
+  "Monday": "Montag",
+  "Tuesday": "Dienstag",
+  "Wednesday": "Mittwoch",
+  "Thursday": "Donnerstag",
+  "Friday": "Freitag",
+  "Saturday": "Samstag",
+  "Sunday": "Sonntag",
+  "I want to do": "Was ich tun will"
 }
