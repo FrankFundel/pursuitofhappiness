@@ -1,11 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {trans} from "../App";
 
 database().setPersistenceEnabled(true);
 database().setPersistenceCacheSizeBytes(20000000); //20MB
-
-export const translate = trans;
 
 export class Database {
   
@@ -17,6 +14,8 @@ export class Database {
       this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
       this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
       this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
+
+      this.lectionsRef = database().ref("lections");
     }
 
     auth().onAuthStateChanged(user => {
@@ -27,6 +26,8 @@ export class Database {
         this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
         this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
         this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
+        
+        this.lectionsRef = database().ref("lections");
       }
     })
   }
@@ -35,8 +36,6 @@ export class Database {
 export class PursuitOfHappiness {
   constructor() {
     this.Database = new Database(this);
-
-    this.blurApp = () => {};
   }
 }
 

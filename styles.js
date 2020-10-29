@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.White,
   },
   scrollContainer: {
-    paddingBottom: 124,
+    paddingBottom: 16,
     backgroundColor: Colors.White,
     flexGrow: 1,
   },
@@ -153,6 +153,12 @@ export const styles = StyleSheet.create({
     color: Colors.Black,
     fontSize: 20,
     marginHorizontal: 16,
+    ...Fonts.headlineSemibold,
+    letterSpacing: 0.38
+  },
+  headlineCenter: {
+    color: Colors.Black,
+    fontSize: 20,
     ...Fonts.headlineSemibold,
     letterSpacing: 0.38
   },

@@ -146,7 +146,7 @@ export default class AccountScreen extends React.Component {
         contentInsetAdjustmentBehavior="automatic">
 
         <View style={{flexDirection: "row", padding: 24}}>
-          <AnimatedCircularProgress size={124} width={8} fill={points / (level+1)} backgroundColor={Colors.ExtraLightGray} tintColor={Colors.Normal} lineCap={"round"}>
+          <AnimatedCircularProgress size={124} width={8} fill={points / (level+1)} backgroundColor={Colors.ExtraLightGray} tintColor={Colors.Light} lineCap={"round"}>
             {
               (fill) => (
                 <TouchableOpacity onPress={this.showImageSheet} activeOpacity={0.8}>
