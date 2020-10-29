@@ -7,7 +7,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
-import PeekAndPop from '@react-native-community/peek-and-pop';
+import { ContextMenuView } from "react-native-ios-context-menu";
 import { TabView, TabBar } from 'react-native-tab-view';
 import ListItem from '../components/ListItem';
 
@@ -145,27 +145,34 @@ export default class ToDoScreen extends React.Component {
       const {done, text} = item;
       const key = id + day + index;
 
-      return <PeekAndPop
+      return <ContextMenuView
       key={key}
-      renderPreview={() => <ListItem title={text} done={done} key={key} style={journalStyle.contentPeek} />}
-      onPeek={() => PursuitOfHappiness.blurApp(true)}
-      onDisappear={() => PursuitOfHappiness.blurApp(false)}
-      previewActions={[
-        {
-          type: 'normal',
-          label: translate("Done"),
-          onPress: () => this.setDailyItemDone(id, day, index, !done),
-        },
-        {
-          type: 'destructive',
-          label: translate("Remove"),
-          onPress: () => this.removeDailyItem(id, day, index),
-        },
-      ]}>
+      menuConfig={{
+        menuTitle: '',
+        menuItems: [
+          {
+            actionKey: "0",
+            actionTitle: translate("Done"),
+          },
+          {
+            actionKey: "1",
+            actionTitle: translate("Remove"),
+            menuAttributes: ["destructive"],
+          },
+        ]
+      }}
+      onPressMenuItem={({nativeEvent}) => {
+        var key = nativeEvent.actionKey;
+        if(key == "0") {
+          this.setDailyItemDone(id, day, index, !done);
+        } else if(key == "1") {
+          this.removeDailyItem(id, day, index);
+        }
+      }}>
         <ListItem title={text} done={done} key={key} onPress={() => {
           this.setDailyItemDone(id, day, index, !done);
         }} />
-      </PeekAndPop>;
+      </ContextMenuView>;
     }
   }
 
@@ -174,27 +181,34 @@ export default class ToDoScreen extends React.Component {
       const {done, text} = item;
       const key = id + index;
 
-      return <PeekAndPop
+      return <ContextMenuView 
       key={key}
-      renderPreview={() => <ListItem title={text} done={done} key={key} style={journalStyle.contentPeek} />}
-      onPeek={() => PursuitOfHappiness.blurApp(true)}
-      onDisappear={() => PursuitOfHappiness.blurApp(false)}
-      previewActions={[
-        {
-          type: 'normal',
-          label: translate("Done"),
-          onPress: () => this.setWeeklyItemDone(id, index, !done),
-        },
-        {
-          type: 'destructive',
-          label: translate("Remove"),
-          onPress: () => this.removeWeeklyItem(id, index),
-        },
-      ]}>
+      menuConfig={{
+        menuTitle: '',
+        menuItems: [
+          {
+            actionKey: "0",
+            actionTitle: translate("Done"),
+          },
+          {
+            actionKey: "1",
+            actionTitle: translate("Remove"),
+            menuAttributes: ['destructive'],
+          },
+        ]}
+      }
+      onPressMenuItem={({nativeEvent}) => {
+        var key = nativeEvent.actionKey;
+        if(key == "0") {
+          this.setWeeklyItemDone(id, index, !done);
+        } else if(key == "1") {
+          this.removeWeeklyItem(id, index);
+        }
+      }}>
         <ListItem title={text} done={done} key={key} onPress={() => {
           this.setWeeklyItemDone(id, index, !done);
         }} />
-      </PeekAndPop>;
+      </ContextMenuView>;
     }
   }
 
@@ -204,7 +218,7 @@ export default class ToDoScreen extends React.Component {
     const key = id + day;
 
     return <TouchableOpacity style={journalStyle.day} activeOpacity={1} onPress={() => this.setState({selectedDay: day})} key={key}>
-      <Text style={[styles.headline, {margin: 12}]}>{name}</Text>
+      <Text style={[styles.headline, {margin: 12}]}>{translate(name)}</Text>
 
       {content && content.map((item, index) => this.renderDailyItem(id, day, index, item))}
       
@@ -317,27 +331,34 @@ export default class ToDoScreen extends React.Component {
     <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
       <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I want to do")}</Text>
 
-      {this.state.overall.map(({text, done}, index) => <PeekAndPop
+      {this.state.overall.map(({text, done}, index) => <ContextMenuView 
       key={index}
-      renderPreview={() => <ListItem title={text} done={done} key={index} style={journalStyle.contentPeek} />}
-      onPeek={() => PursuitOfHappiness.blurApp(true)}
-      onDisappear={() => PursuitOfHappiness.blurApp(false)}
-      previewActions={[
-        {
-          type: 'normal',
-          label: translate("Done"),
-          onPress: () => this.setOverallItemDone(index, !done),
-        },
-        {
-          type: 'destructive',
-          label: translate("Remove"),
-          onPress: () => this.removeOverallItem(index),
-        },
-      ]}>
+      menuConfig={{
+        menuTitle: '',
+        menuItems: [
+          {
+            actionKey: "0",
+            actionTitle: translate("Done"),
+          },
+          {
+            actionKey: "1",
+            actionTitle: translate("Remove"),
+            menuAttributes: ['destructive'],
+          },
+        ]}
+      }
+      onPressMenuItem={({nativeEvent}) => {
+        var key = nativeEvent.actionKey;
+        if(key == "0") {
+          this.setOverallItemDone(index, !done);
+        } else if(key == "1") {
+          this.removeOverallItem(index);
+        }
+      }}>
         <ListItem title={text} done={done} key={index} onPress={() => {
           this.setOverallItemDone(index, !done);
         }} />
-      </PeekAndPop>)}
+      </ContextMenuView>)}
       
       <TextInput
         style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}

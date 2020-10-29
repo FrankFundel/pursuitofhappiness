@@ -7,7 +7,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
-import PeekAndPop from '@react-native-community/peek-and-pop';
+import { ContextMenuView } from "react-native-ios-context-menu";
 import LottieView from 'lottie-react-native';
 
 const CW = moment().week();
@@ -61,39 +61,35 @@ export default class JournalScreen extends React.Component {
 
   renderContent = (id, text, index) => {
     if(text) {
-      return <PeekAndPop
-        key={index}
-        renderPreview={() =>
-        <View style={journalStyle.contentPeek} key={index}>
+      return <ContextMenuView
+      key={index}
+      menuConfig={{
+        menuTitle: '',
+        menuItems: [
+          {
+            actionKey: "0",
+            actionTitle: translate("Remove"),
+            menuAttributes: ['destructive'],
+          },
+        ]}
+      }
+      onPressMenuItem={({nativeEvent}) => {
+        var key = nativeEvent.actionKey;
+        if(key == "0") {
+          this.removeContent(id, index);
+        }
+      }}>
+        <View style={journalStyle.content} key={index}>
           <LottieView
             source={require('../assets/lottie/sun.json')}
             loop
             autoPlay
-            style={{width: 24, height: 24, marginRight: 8}}
+            style={{width: 16, height: 16, marginRight: 8}}
           />
 
           <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{text}</Text>
-        </View>}
-        onPeek={() => PursuitOfHappiness.blurApp(true)}
-        onDisappear={() => PursuitOfHappiness.blurApp(false)}
-        previewActions={[
-          {
-            type: 'destructive',
-            label: translate("Remove"),
-            onPress: () => this.removeContent(id, index),
-          },
-        ]}>
-          <View style={journalStyle.content} key={index}>
-            <LottieView
-              source={require('../assets/lottie/sun.json')}
-              loop
-              autoPlay
-              style={{width: 16, height: 16, marginRight: 8}}
-            />
-
-            <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{text}</Text>
-          </View>
-      </PeekAndPop>
+        </View>
+      </ContextMenuView>
     }
   }
 
@@ -142,6 +138,7 @@ export default class JournalScreen extends React.Component {
     contentInsetAdjustmentBehavior="automatic"
     contentContainerStyle={styles.scrollContainer}
     showsVerticalScrollIndicator={false}>
+  
       <Accordion
         sections={this.state.weeks}
         activeSections={this.state.activeSections}
