@@ -26,6 +26,7 @@
 		B1438C6D312A4D968310B35A /* SFProText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E99649CB2BC34FB0B88D3303 /* SFProText-Bold.otf */; };
 		B4DB5621929F445B86FDA218 /* SFProDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CA1524E145EA450DA0093F45 /* SFProDisplay-Semibold.otf */; };
 		BE993B2BB30E4AC78AE51749 /* SFProDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5626411DD5E42F99238BC04 /* SFProDisplay-Bold.otf */; };
+		C90C33B82549F2D7004B271C /* Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C33B72549F2D7004B271C /* Swift.swift */; };
 		C96FAFAA25471B33000196BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C96FAFA925471B33000196BB /* GoogleService-Info.plist */; };
 		C96FAFB225472B02000196BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96FAFB125472B02000196BB /* LaunchScreen.storyboard */; };
 		E5C5DEF4571444708D4FA702 /* SFProDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 105B329516BD4F65B8F5C3A6 /* SFProDisplay-Light.otf */; };
@@ -58,14 +59,18 @@
 		046AFA6634094C4296477B67 /* SFProText-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Light.otf"; path = "../assets/fonts/SFProText-Light.otf"; sourceTree = "<group>"; };
 		04C4573951BFCD630A7BEA24 /* Pods-pursuitofhappiness-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-tvOS/Pods-pursuitofhappiness-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		105B329516BD4F65B8F5C3A6 /* SFProDisplay-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Light.otf"; path = "../assets/fonts/SFProDisplay-Light.otf"; sourceTree = "<group>"; };
+		1083CF63EA5D4BD89B8F3B05 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Pursuit Of Happiness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pursuit Of Happiness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = pursuitofhappiness/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = pursuitofhappiness/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pursuitofhappiness/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pursuitofhappiness/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = pursuitofhappiness/main.m; sourceTree = "<group>"; };
+		15AA70D14AD646B1A6931DCA /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		1A56E310FCBD79B63510A1B5 /* libPods-pursuitofhappiness-pursuitofhappinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pursuitofhappiness-pursuitofhappinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		20C24E7887504BC4A408FC86 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		2718D0CDC1A04056535DD53E /* Pods-pursuitofhappiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness.release.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness/Pods-pursuitofhappiness.release.xcconfig"; sourceTree = "<group>"; };
+		28052D7A7AC442AF8BCE50EA /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		2969BB5EBB5511095B240AFD /* Pods-pursuitofhappiness-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-tvOSTests/Pods-pursuitofhappiness-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B35077105A90123A261F432 /* Pods-pursuitofhappiness-pursuitofhappinessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-pursuitofhappinessTests.debug.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-pursuitofhappinessTests/Pods-pursuitofhappiness-pursuitofhappinessTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C5DAD40124B137DB30E62BD /* libPods-pursuitofhappiness-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pursuitofhappiness-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,9 +81,19 @@
 		37580EC0BCB14547A7EF0372 /* SFProDisplay-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Regular.otf"; path = "../assets/fonts/SFProDisplay-Regular.otf"; sourceTree = "<group>"; };
 		5A34BD93AC6CD5DE66AD3862 /* Pods-pursuitofhappiness-pursuitofhappinessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-pursuitofhappinessTests.release.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-pursuitofhappinessTests/Pods-pursuitofhappiness-pursuitofhappinessTests.release.xcconfig"; sourceTree = "<group>"; };
 		5D9D03B4C3F8FAB6C66A1224 /* Pods-pursuitofhappiness-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-tvOSTests/Pods-pursuitofhappiness-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		6137E0BEA44B43EC83C6B0D4 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		6D7C8ECC8DAC4FB8973AC3BA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		705559F66F83D70638F82633 /* libPods-pursuitofhappiness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pursuitofhappiness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		892EBC8D53CA4D7ABAE0F663 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		8E379B7BB0474988BA48B914 /* SFProDisplay-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Medium.otf"; path = "../assets/fonts/SFProDisplay-Medium.otf"; sourceTree = "<group>"; };
 		9AA52F09386449A98A396B44 /* SFProText-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Regular.otf"; path = "../assets/fonts/SFProText-Regular.otf"; sourceTree = "<group>"; };
+		9D2FA61B770944CA94B06AE7 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		A00FF152671747A19F3B2E1C /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		A1CBEF3CCF4549BB9B75FF02 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		A6A126100CA64AA5AE8DE636 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		A758E2F4EAF7474887290FD7 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		AEA36887D63641269717F998 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		B9693DF8F4A841F3B72B9A8D /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		BAC5BD7CD1DF8021805EA374 /* Pods-pursuitofhappiness-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pursuitofhappiness-tvOS.release.xcconfig"; path = "Target Support Files/Pods-pursuitofhappiness-tvOS/Pods-pursuitofhappiness-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		C90C3396254971F9004B271C /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		C90C3397254971F9004B271C /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
@@ -96,16 +111,24 @@
 		C90C33A3254971F9004B271C /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C90C33A4254971F9004B271C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		C90C33A5254971F9004B271C /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		C90C33B62549F2D6004B271C /* pursuitofhappiness-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pursuitofhappiness-Bridging-Header.h"; sourceTree = "<group>"; };
+		C90C33B72549F2D7004B271C /* Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift.swift; sourceTree = "<group>"; };
 		C96FAFA925471B33000196BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C96FAFB125472B02000196BB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C96FAFB325483C81000196BB /* Pursuit Of Happiness.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Pursuit Of Happiness.entitlements"; path = "pursuitofhappiness/Pursuit Of Happiness.entitlements"; sourceTree = "<group>"; };
+		C98EE9352549FC380003B9E1 /* libreact-native-ios-context-menu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-ios-context-menu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C98EE937254A055A0003B9E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C98EE939254A05760003B9E1 /* libswiftUIKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftUIKit.tbd; path = usr/lib/swift/libswiftUIKit.tbd; sourceTree = SDKROOT; };
+		C9AB3108254AD3C60083A16B /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		CA1524E145EA450DA0093F45 /* SFProDisplay-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Semibold.otf"; path = "../assets/fonts/SFProDisplay-Semibold.otf"; sourceTree = "<group>"; };
+		D65CEA5D20DD4C7CA9160819 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		E99649CB2BC34FB0B88D3303 /* SFProText-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.otf"; path = "../assets/fonts/SFProText-Bold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F272CC69142242D3B1115614 /* SFProText-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Semibold.otf"; path = "../assets/fonts/SFProText-Semibold.otf"; sourceTree = "<group>"; };
 		F5626411DD5E42F99238BC04 /* SFProDisplay-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Bold.otf"; path = "../assets/fonts/SFProDisplay-Bold.otf"; sourceTree = "<group>"; };
 		F5E86AD5C1C84E08980E5740 /* SFProText-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Medium.otf"; path = "../assets/fonts/SFProText-Medium.otf"; sourceTree = "<group>"; };
+		F8F32A48F1C6436FB6F47F5F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +202,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9AB3108254AD3C60083A16B /* NetworkExtension.framework */,
+				C98EE939254A05760003B9E1 /* libswiftUIKit.tbd */,
+				C98EE937254A055A0003B9E1 /* UIKit.framework */,
+				C98EE9352549FC380003B9E1 /* libreact-native-ios-context-menu.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				705559F66F83D70638F82633 /* libPods-pursuitofhappiness.a */,
@@ -214,8 +241,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C90C3395254971F9004B271C /* Fonts */,
+				C90C33B72549F2D7004B271C /* Swift.swift */,
 				C96FAFA925471B33000196BB /* GoogleService-Info.plist */,
+				C90C3395254971F9004B271C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* pursuitofhappiness */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* pursuitofhappinessTests */,
@@ -223,6 +251,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				54C46B9236F00A53EAAD8443 /* Pods */,
 				949E33AD55FE46148F009B98 /* Resources */,
+				C90C33B62549F2D6004B271C /* pursuitofhappiness-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -253,6 +282,22 @@
 				F5E86AD5C1C84E08980E5740 /* SFProText-Medium.otf */,
 				9AA52F09386449A98A396B44 /* SFProText-Regular.otf */,
 				F272CC69142242D3B1115614 /* SFProText-Semibold.otf */,
+				6137E0BEA44B43EC83C6B0D4 /* AntDesign.ttf */,
+				A758E2F4EAF7474887290FD7 /* Entypo.ttf */,
+				F8F32A48F1C6436FB6F47F5F /* EvilIcons.ttf */,
+				AEA36887D63641269717F998 /* Feather.ttf */,
+				20C24E7887504BC4A408FC86 /* FontAwesome.ttf */,
+				28052D7A7AC442AF8BCE50EA /* FontAwesome5_Brands.ttf */,
+				15AA70D14AD646B1A6931DCA /* FontAwesome5_Regular.ttf */,
+				A00FF152671747A19F3B2E1C /* FontAwesome5_Solid.ttf */,
+				A1CBEF3CCF4549BB9B75FF02 /* Fontisto.ttf */,
+				B9693DF8F4A841F3B72B9A8D /* Foundation.ttf */,
+				892EBC8D53CA4D7ABAE0F663 /* Ionicons.ttf */,
+				9D2FA61B770944CA94B06AE7 /* MaterialCommunityIcons.ttf */,
+				1083CF63EA5D4BD89B8F3B05 /* MaterialIcons.ttf */,
+				D65CEA5D20DD4C7CA9160819 /* Octicons.ttf */,
+				6D7C8ECC8DAC4FB8973AC3BA /* SimpleLineIcons.ttf */,
+				A6A126100CA64AA5AE8DE636 /* Zocial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -378,7 +423,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 394GYAPHM6;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1150;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -746,6 +791,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				C90C33B82549F2D7004B271C /* Swift.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -787,6 +833,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B35077105A90123A261F432 /* Pods-pursuitofhappiness-pursuitofhappinessTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -810,6 +857,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5A34BD93AC6CD5DE66AD3862 /* Pods-pursuitofhappiness-pursuitofhappinessTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = pursuitofhappinessTests/Info.plist;
@@ -830,24 +878,34 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34753886E1E79B2F6A07744C /* Pods-pursuitofhappiness.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "pursuitofhappiness/Pursuit Of Happiness.entitlements";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 394GYAPHM6;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = pursuitofhappiness/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/usr/lib/swift-5.0",
+					"$(inherited)",
+				);
+				MARKETING_VERSION = 1.0.3;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadros.pursuitofhappiness;
 				PRODUCT_NAME = "Pursuit Of Happiness";
+				SWIFT_OBJC_BRIDGING_HEADER = "pursuitofhappiness-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -856,22 +914,33 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2718D0CDC1A04056535DD53E /* Pods-pursuitofhappiness.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "pursuitofhappiness/Pursuit Of Happiness.entitlements";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 394GYAPHM6;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = pursuitofhappiness/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/usr/lib/swift-5.0",
+					"$(inherited)",
+				);
+				MARKETING_VERSION = 1.0.3;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadros.pursuitofhappiness;
 				PRODUCT_NAME = "Pursuit Of Happiness";
+				SWIFT_OBJC_BRIDGING_HEADER = "pursuitofhappiness-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 arm64e";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1016,6 +1085,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1033,7 +1103,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1042,7 +1112,13 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lc++",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -1076,6 +1152,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1086,7 +1163,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1094,8 +1171,15 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lc++",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};
