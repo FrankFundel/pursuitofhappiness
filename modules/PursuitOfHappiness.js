@@ -14,6 +14,9 @@ export class Database {
       this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
       this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
       this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
+      this.dailyEventsRef = database().ref("dailyEvents").child(this.user.uid);
+      this.weeklyEventsRef = database().ref("weeklyEvents").child(this.user.uid);
+      this.lectionData = database().ref("lectionData").child(this.user.uid);
 
       this.lectionsRef = database().ref("lections");
     }
@@ -26,6 +29,9 @@ export class Database {
         this.weeklyTodoRef = database().ref("weeklyTodo").child(this.user.uid);
         this.dailyTodoRef = database().ref("dailyTodo").child(this.user.uid);
         this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
+        this.dailyEventsRef = database().ref("dailyEvents").child(this.user.uid);
+        this.weeklyEventsRef = database().ref("weeklyEvents").child(this.user.uid);
+        this.lectionData = database().ref("lectionData").child(this.user.uid);
         
         this.lectionsRef = database().ref("lections");
       }

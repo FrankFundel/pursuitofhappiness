@@ -44,109 +44,77 @@ export default class ToDoScreen extends React.Component {
 
     this.dailyWeeks = {};
     this.weeklyWeeks = {};
+    this.overall = {};
   }
 
   addDailyItem = (id, day, text) => {
     if(text) {
-      var week = this.dailyWeeks[id];
-      if(!week.days) {
-        PursuitOfHappiness.Database.dailyTodoRef.child(id).child("days").set({[day]: [{
-          done: false,
-          text,
-        }]});
-      } else if(!week.days[day]) {
-        PursuitOfHappiness.Database.dailyTodoRef.child(id).child("days").child(day.toString()).set([{
-          done: false,
-          text,
-        }]);
-      } else {
-        PursuitOfHappiness.Database.dailyTodoRef.child(id).child("days").child(day.toString()).child(week.days[day].length.toString()).set({
-          done: false,
-          text,
-        });
-      }
-    }
-  }
-
-  removeDailyItem = (id, day, index) => {
-    PursuitOfHappiness.Database.dailyTodoRef.child(id).child("days").child(day.toString()).child(index.toString()).remove();
-  }
-  
-  setDailyItemDone = (id, day, index, done) => {
-    PursuitOfHappiness.Database.dailyTodoRef.child(id).child("days").child(day.toString()).child(index.toString()).update({done});
-  }
-
-  addWeeklyItem = (id, text) => {
-    if(text) {
-      var week = this.weeklyWeeks[id];
-      if(!week.content) {
-        PursuitOfHappiness.Database.weeklyTodoRef.child(id).child("content").set([{
-          done: false,
-          text,
-        }]);
-      } else {
-        PursuitOfHappiness.Database.weeklyTodoRef.child(id).child("content").child(week.content.length.toString()).set({
-          done: false,
-          text,
-        });
-      }
-    }
-  }
-
-  removeWeeklyItem = (id, index) => {
-    PursuitOfHappiness.Database.weeklyTodoRef.child(id).child("content").child(index.toString()).remove();
-  }
-  
-  setWeeklyItemDone = (id, index, done) => {
-    PursuitOfHappiness.Database.weeklyTodoRef.child(id).child("content").child(index.toString()).update({done});
-  }
-
-  addOverallItem = text => {
-    if(text) {
-      PursuitOfHappiness.Database.overallTodoRef.child(this.state.overall.length.toString()).set({
+      PursuitOfHappiness.Database.dailyTodoRef.child(id.toString()).child(day.toString()).push({
         done: false,
         text,
       });
     }
   }
 
-  removeOverallItem = index => {
-    PursuitOfHappiness.Database.overallTodoRef.child(index.toString()).remove();
+  removeDailyItem = (id, day, item) => {
+    PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).remove();
   }
   
-  setOverallItemDone = (index, done) => {
-    PursuitOfHappiness.Database.overallTodoRef.child(index.toString()).update({done});
+  setDailyItemDone = (id, day, item, done) => {
+    PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done});
   }
 
-  renderDailyHeader = (id, index, isActive) => {
-    const week = this.dailyWeeks[id];
+  addWeeklyItem = (id, text) => {
+    if(text) {
+      PursuitOfHappiness.Database.weeklyTodoRef.child(id).push({
+        done: false,
+        text,
+      });
+    }
+  }
+
+  removeWeeklyItem = (id, item) => {
+    PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).remove();
+  }
+  
+  setWeeklyItemDone = (id, item, done) => {
+    PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done});
+  }
+
+  addOverallItem = text => {
+    if(text) {
+      PursuitOfHappiness.Database.overallTodoRef.push({
+        done: false,
+        text,
+      });
+    }
+  }
+
+  removeOverallItem = item => {
+    PursuitOfHappiness.Database.overallTodoRef.child(item).remove();
+  }
+  
+  setOverallItemDone = (item, done) => {
+    PursuitOfHappiness.Database.overallTodoRef.child(item).update({done});
+  }
+
+  renderHeader = (id, index, isActive) => {
     var title;
-    if(week.cw == moment().week()) {
+    var week = id.replace("-", "");
+    if(week == CW) {
       title = translate("This Week");
     } else {
-      title = translate("CW") + " " + week.cw;
+      title = translate("CW") + " " + week;
     }
     return <Section title={title} isActive={isActive} />;
   }
 
-  renderWeeklyHeader = (id, index, isActive) => {
-    const week = this.weeklyWeeks[id];
-    var title;
-    if(week.cw == moment().week()) {
-      title = translate("This Week");
-    } else {
-      title = translate("CW") + " " + week.cw;
-    }
-    return <Section title={title} isActive={isActive} />;
-  }
-
-  renderDailyItem = (id, day, index, item) => {
+  renderDailyItem = (id, day, item) => {
     if(item) {
-      const {done, text} = item;
-      const key = id + day + index;
+      const {done, text, time} = this.dailyWeeks[id][day][item];
 
       return <ContextMenuView
-      key={key}
+      key={item}
       menuConfig={{
         menuTitle: '',
         menuItems: [
@@ -164,25 +132,24 @@ export default class ToDoScreen extends React.Component {
       onPressMenuItem={({nativeEvent}) => {
         var key = nativeEvent.actionKey;
         if(key == "0") {
-          this.setDailyItemDone(id, day, index, !done);
+          this.setDailyItemDone(id, day, item, !done);
         } else if(key == "1") {
-          this.removeDailyItem(id, day, index);
+          this.removeDailyItem(id, day, item);
         }
       }}>
-        <ListItem title={text} done={done} key={key} onPress={() => {
-          this.setDailyItemDone(id, day, index, !done);
+        <ListItem title={text} done={done} time={time} onPress={() => {
+          this.setDailyItemDone(id, day, item, !done);
         }} />
       </ContextMenuView>;
     }
   }
 
-  renderWeeklyItem = (id, index, item) => {
+  renderWeeklyItem = (id, item) => {
     if(item) {
-      const {done, text} = item;
-      const key = id + index;
+      const {done, text, time} = this.weeklyWeeks[id][item];
 
       return <ContextMenuView 
-      key={key}
+      key={item}
       menuConfig={{
         menuTitle: '',
         menuItems: [
@@ -200,13 +167,13 @@ export default class ToDoScreen extends React.Component {
       onPressMenuItem={({nativeEvent}) => {
         var key = nativeEvent.actionKey;
         if(key == "0") {
-          this.setWeeklyItemDone(id, index, !done);
+          this.setWeeklyItemDone(id, item, !done);
         } else if(key == "1") {
-          this.removeWeeklyItem(id, index);
+          this.removeWeeklyItem(id, item);
         }
       }}>
-        <ListItem title={text} done={done} key={key} onPress={() => {
-          this.setWeeklyItemDone(id, index, !done);
+        <ListItem title={text} done={done} time={time} onPress={() => {
+          this.setWeeklyItemDone(id, item, !done);
         }} />
       </ContextMenuView>;
     }
@@ -220,7 +187,7 @@ export default class ToDoScreen extends React.Component {
     return <TouchableOpacity style={journalStyle.day} activeOpacity={1} onPress={() => this.setState({selectedDay: day})} key={key}>
       <Text style={[styles.headline, {margin: 12}]}>{translate(name)}</Text>
 
-      {content && content.map((item, index) => this.renderDailyItem(id, day, index, item))}
+      {content && Object.keys(content).sort().map(item => this.renderDailyItem(id, day, item))}
       
       {selectedDay == day && <TextInput
         style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}
@@ -241,19 +208,19 @@ export default class ToDoScreen extends React.Component {
     const week = this.dailyWeeks[id];
     return (
       <View style={{margin: 16}}>
-        {WEEK_DAYS.map((item, index) => this.renderDay(id, week.days && (week.days[index] || []), index))}
+        {WEEK_DAYS.map((item, index) => this.renderDay(id, week[index], index))}
       </View>
     );
   }
 
   renderWeeklyWeek = id => {
-    const week = this.weeklyWeeks[id];
+    const items = this.weeklyWeeks[id];
 
     return (
       <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
         <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I want to do")}</Text>
 
-        {week.content && week.content.map((item, index) => this.renderWeeklyItem(id, index, item))}
+        {items && Object.keys(items).sort().map(item => this.renderWeeklyItem(id, item))}
         
         <TextInput
           style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}
@@ -273,31 +240,20 @@ export default class ToDoScreen extends React.Component {
 
   componentDidMount = () => {
     PursuitOfHappiness.Database.dailyTodoRef.on("value", snapshot => {
-      this.dailyWeeks = snapshot.val();
-      this.setState({dailyWeeks: this.dailyWeeks ? Object.keys(this.dailyWeeks).reverse() : []}, () => {
-        const dailyWeeks = this.state.dailyWeeks;
-        if(dailyWeeks.length == 0 || this.dailyWeeks[dailyWeeks[dailyWeeks.length-1]].cw != CW) {
-          PursuitOfHappiness.Database.dailyTodoRef.push({
-            cw: CW,
-          });
-        }
-      });
+      this.dailyWeeks = snapshot.val() || {};
+      if(!this.dailyWeeks["-" + CW]) this.dailyWeeks["-" + CW] = [];
+      this.setState({dailyWeeks: Object.keys(this.dailyWeeks).sort().reverse()});
     });
     
     PursuitOfHappiness.Database.weeklyTodoRef.on("value", snapshot => {
-      this.weeklyWeeks = snapshot.val();
-      this.setState({weeklyWeeks: this.weeklyWeeks ? Object.keys(this.weeklyWeeks).reverse() : []}, () => {
-        const weeklyWeeks = this.state.weeklyWeeks;
-        if(weeklyWeeks.length == 0 || this.weeklyWeeks[weeklyWeeks[weeklyWeeks.length-1]].cw != CW) {
-          PursuitOfHappiness.Database.weeklyTodoRef.push({
-            cw: CW,
-          });
-        }
-      });
+      this.weeklyWeeks = snapshot.val() || [];
+      if(!this.weeklyWeeks["-" + CW]) this.weeklyWeeks["-" + CW] = [];
+      this.setState({weeklyWeeks: Object.keys(this.weeklyWeeks).sort().reverse()});
     });
     
     PursuitOfHappiness.Database.overallTodoRef.on("value", snapshot => {
-      this.setState({overall: snapshot.val() || []});
+      this.overall = snapshot.val() || {};
+      this.setState({overall: Object.keys(this.overall).sort()});
     });
   }
 
@@ -306,7 +262,7 @@ export default class ToDoScreen extends React.Component {
       <Accordion
         sections={this.state.dailyWeeks}
         activeSections={this.state.activeDailySections}
-        renderHeader={this.renderDailyHeader}
+        renderHeader={this.renderHeader}
         renderContent={this.renderDailyWeek}
         onChange={activeDailySections => this.setState({ activeDailySections })}
         underlayColor={Colors.WhiteGray}
@@ -319,20 +275,20 @@ export default class ToDoScreen extends React.Component {
       <Accordion
         sections={this.state.weeklyWeeks}
         activeSections={this.state.activeWeeklySections}
-        renderHeader={this.renderWeeklyHeader}
+        renderHeader={this.renderHeader}
         renderContent={this.renderWeeklyWeek}
         onChange={activeWeeklySections => this.setState({ activeWeeklySections })}
         underlayColor={Colors.WhiteGray}
       />
     </View>
   )
-  
-  OverallRoute = () => (
-    <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
-      <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I want to do")}</Text>
 
-      {this.state.overall.map(({text, done}, index) => <ContextMenuView 
-      key={index}
+  renderOverallItem = item => {
+    const {text, done} = this.overall[item];
+
+    return (
+      <ContextMenuView 
+      key={item}
       menuConfig={{
         menuTitle: '',
         menuItems: [
@@ -350,15 +306,23 @@ export default class ToDoScreen extends React.Component {
       onPressMenuItem={({nativeEvent}) => {
         var key = nativeEvent.actionKey;
         if(key == "0") {
-          this.setOverallItemDone(index, !done);
+          this.setOverallItemDone(item, !done);
         } else if(key == "1") {
-          this.removeOverallItem(index);
+          this.removeOverallItem(item);
         }
       }}>
-        <ListItem title={text} done={done} key={index} onPress={() => {
-          this.setOverallItemDone(index, !done);
+        <ListItem title={text} done={done} onPress={() => {
+          this.setOverallItemDone(item, !done);
         }} />
-      </ContextMenuView>)}
+      </ContextMenuView>
+    );
+  }
+  
+  OverallRoute = () => (
+    <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
+      <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I want to do")}</Text>
+
+      {this.state.overall.map(item => this.renderOverallItem(item))}
       
       <TextInput
         style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}

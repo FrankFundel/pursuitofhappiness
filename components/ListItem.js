@@ -23,7 +23,7 @@ export default class ListItem extends React.PureComponent {
   }
 
   render() {
-    const { title, done, onPress, style } = this.props;
+    const { title, done, time, onPress, style } = this.props;
 
     return (
       <TouchableOpacity style={[journalStyle.content, {paddingVertical: 8}, style]} onPress={onPress}>
@@ -38,6 +38,8 @@ export default class ListItem extends React.PureComponent {
         />
 
         <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{title}</Text>
+
+        <Text style={[styles.text, {fontSize: 16, flex: 1, color: Colors.Active, textAlign: "right"}]}>{time}</Text>
       </TouchableOpacity>
     );
   };

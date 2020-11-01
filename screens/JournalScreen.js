@@ -35,34 +35,31 @@ export default class JournalScreen extends React.Component {
 
   addContent = (id, text) => {
     if(text) {
-      var week = this.weeks[id];
-      if(!week.content) {
-        PursuitOfHappiness.Database.journalRef.child(id).child("content").set([text]);
-      } else {
-        PursuitOfHappiness.Database.journalRef.child(id).child("content").child(week.content.length.toString()).set(text);
-      }
+      PursuitOfHappiness.Database.journalRef.child(id).push(text);
     }
   }
   
-  removeContent = (id, index) => {
-    PursuitOfHappiness.Database.journalRef.child(id).child("content").child(index.toString()).remove();
+  removeContent = (id, item) => {
+    PursuitOfHappiness.Database.journalRef.child(id).child(item).remove();
   }
 
   renderHeader = (id, index, isActive) => {
-    const week = this.weeks[id];
     var title;
-    if(week.cw == moment().week()) {
+    var week = id.replace("-", "");
+    if(week == CW) {
       title = translate("This Week");
     } else {
-      title = translate("CW") + " " + week.cw;
+      title = translate("CW") + " " + week;
     }
     return <Section title={title} isActive={isActive} />;
   }
 
-  renderContent = (id, text, index) => {
+  renderContent = (id, item) => {
+    const text = this.weeks[id][item];
+    
     if(text) {
       return <ContextMenuView
-      key={index}
+      key={item}
       menuConfig={{
         menuTitle: '',
         menuItems: [
@@ -79,7 +76,7 @@ export default class JournalScreen extends React.Component {
           this.removeContent(id, index);
         }
       }}>
-        <View style={journalStyle.content} key={index}>
+        <View style={journalStyle.content}>
           <LottieView
             source={require('../assets/lottie/sun.json')}
             loop
@@ -94,13 +91,13 @@ export default class JournalScreen extends React.Component {
   }
 
   renderWeek = id => {
-    const week = this.weeks[id];
+    const items = this.weeks[id];
 
     return (
       <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
         <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("I am grateful for")}</Text>
 
-        {week.content && week.content.map((text, index) => this.renderContent(id, text, index))}
+        {items && Object.keys(items).sort().map(item => this.renderContent(id, item))}
         
         <TextInput
           style={[journalStyle.textInput, {height: this.state.textHeight > 90 ? 90 : this.state.textHeight}]}
@@ -120,15 +117,9 @@ export default class JournalScreen extends React.Component {
 
   componentDidMount = () => {
     PursuitOfHappiness.Database.journalRef.on("value", snapshot => {
-      this.weeks = snapshot.val();
-      this.setState({weeks: this.weeks ? Object.keys(this.weeks).reverse() : []}, () => {
-        const weeks = this.state.weeks;
-        if(weeks.length == 0 || this.weeks[weeks[weeks.length-1]].cw != CW) {
-          PursuitOfHappiness.Database.journalRef.push({
-            cw: CW,
-          });
-        }
-      });
+      this.weeks = snapshot.val() || [];
+      if(!this.weeks["-" + CW]) this.weeks["-" + CW] = [];
+      this.setState({weeks: Object.keys(this.weeks).sort().reverse()});
     });
   }
 

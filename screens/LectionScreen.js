@@ -4,7 +4,10 @@ import { Colors, Fonts, journalStyle, startStyles, styles } from '../styles';
 import {translate} from "../App";
 import CachedImage from '../components/CachedImage';
 import LottieView from 'lottie-react-native';
-import database from '@react-native-firebase/database';
+import PursuitOfHappiness from '../modules/PursuitOfHappiness';
+import moment from 'moment';
+
+const CW = moment().week();
 
 export default class LectionScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,8 +33,29 @@ export default class LectionScreen extends React.Component {
     this.params = this.props.navigation.state.params;
   }
 
-  startLection = () => {
-
+  startLection = async () => {
+    for(let event of this.params.events) {
+      if(event.schedule == "daily") {
+        PursuitOfHappiness.Database.dailyEventsRef.push(event);
+        for(let d = 0; d < 7; d++) {
+          PursuitOfHappiness.Database.dailyTodoRef.child("-" + CW).child(d.toString()).push({
+            done: false,
+            text: event.title,
+            time: event.time,
+          });
+        }
+      } else if(event.schedule == "weekly") {
+        PursuitOfHappiness.Database.weeklyEventsRef.push(event);
+        PursuitOfHappiness.Database.weeklyTodoRef.child("-" + CW).push({
+          done: false,
+          text: event.title,
+          time: event.time,
+        });
+      } else {
+        //date
+      }
+    }
+    this.props.navigation.navigate("Home");
   }
 
   renderItem = (text, index) => {
