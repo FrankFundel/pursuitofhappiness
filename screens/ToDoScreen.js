@@ -20,6 +20,11 @@ export default class ToDoScreen extends React.Component {
 
     return {
       title: 'ToDo',
+      headerRight: () => (
+        <TouchableOpacity style={styles.headerButton} onPress={() => navigation.navigate("Events")} activeOpacity={0.8}>
+          <Text style={[styles.headerButtonText, {color: Colors.Normal}]}>{translate("Events")}</Text>
+        </TouchableOpacity>
+      ),
     }
   };
   
@@ -61,7 +66,14 @@ export default class ToDoScreen extends React.Component {
   }
   
   setDailyItemDone = (id, day, item, done) => {
-    PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done});
+    const {eventId, dataId} = this.dailyWeeks[id][day][item];
+    if(done) {
+      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+      PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done, dataId: ref.key});
+    } else {
+      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+      PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done});
+    }
   }
 
   addWeeklyItem = (id, text) => {
@@ -78,7 +90,14 @@ export default class ToDoScreen extends React.Component {
   }
   
   setWeeklyItemDone = (id, item, done) => {
-    PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done});
+    const {eventId, dataId} = this.weeklyWeeks[id][item];
+    if(done) {
+      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+      PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done, dataId: ref.key});
+    } else {
+      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+      PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done});
+    }
   }
 
   addOverallItem = text => {
@@ -95,7 +114,14 @@ export default class ToDoScreen extends React.Component {
   }
   
   setOverallItemDone = (item, done) => {
-    PursuitOfHappiness.Database.overallTodoRef.child(item).update({done});
+    const {eventId, dataId} = this.overall[item];
+    if(done) {
+      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+      PursuitOfHappiness.Database.overallTodoRef.child(item).update({done, dataId: ref.key});
+    } else {
+      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+      PursuitOfHappiness.Database.overallTodoRef.child(item).update({done});
+    }
   }
 
   renderHeader = (id, index, isActive) => {
@@ -284,7 +310,7 @@ export default class ToDoScreen extends React.Component {
   )
 
   renderOverallItem = item => {
-    const {text, done} = this.overall[item];
+    const {text, done, time} = this.overall[item];
 
     return (
       <ContextMenuView 
@@ -311,7 +337,7 @@ export default class ToDoScreen extends React.Component {
           this.removeOverallItem(item);
         }
       }}>
-        <ListItem title={text} done={done} onPress={() => {
+        <ListItem title={text} done={done} time={time} onPress={() => {
           this.setOverallItemDone(item, !done);
         }} />
       </ContextMenuView>

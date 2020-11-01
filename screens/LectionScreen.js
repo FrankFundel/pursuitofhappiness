@@ -33,28 +33,47 @@ export default class LectionScreen extends React.Component {
     this.params = this.props.navigation.state.params;
   }
 
+  showStatistics = () => {
+    this.props.navigation.navigate("Statistics", {id: this.params.id});
+  }
+
   startLection = async () => {
+    var eventIds = {};
+
     for(let event of this.params.events) {
       if(event.schedule == "daily") {
-        PursuitOfHappiness.Database.dailyEventsRef.push(event);
+        const ref = PursuitOfHappiness.Database.dailyEventsRef.push(event);
+        eventIds[ref.key] = true;
+
         for(let d = 0; d < 7; d++) {
           PursuitOfHappiness.Database.dailyTodoRef.child("-" + CW).child(d.toString()).push({
             done: false,
             text: event.title,
             time: event.time,
+            eventId: ref.key,
           });
+
+          if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "day");
         }
       } else if(event.schedule == "weekly") {
-        PursuitOfHappiness.Database.weeklyEventsRef.push(event);
+        const ref = PursuitOfHappiness.Database.weeklyEventsRef.push(event);
+        eventIds[ref.key] = true;
+
         PursuitOfHappiness.Database.weeklyTodoRef.child("-" + CW).push({
           done: false,
           text: event.title,
           time: event.time,
+          eventId: ref.key,
         });
+        
+        if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "week");
       } else {
-        //date
+        // TODO: date
       }
     }
+    
+    PursuitOfHappiness.Database.lectionDataRef.child(this.params.id).set({startDate: Date.now(), progress: 5, events: eventIds});
+
     this.props.navigation.navigate("Home");
   }
 
@@ -74,7 +93,7 @@ export default class LectionScreen extends React.Component {
   }
   
   renderEvent = (event, index) => {
-    const {title, date, schedule, time} = event;
+    const {title, date, schedule, time, notify} = event;
 
     return (
       <View style={journalStyle.content} key={index}>
@@ -84,7 +103,10 @@ export default class LectionScreen extends React.Component {
         
         <Text style={[styles.text, {fontSize: 16, flex: 1, color: Colors.Active, textAlign: "center"}]}>{schedule || date}</Text>
 
-        <Text style={[styles.text, {fontSize: 16, flex: 1, color: Colors.Active, textAlign: "right"}]}>{time}</Text>
+        <View style={{flexDirection: "row", justifyContent: "flex-end", flex: 1}}>
+          <Text style={[styles.text, {fontSize: 16, color: Colors.Active}]}>{time}</Text>
+          <Text style={[styles.text, {fontSize: 16, color: Colors.Destructive, marginLeft: 4, opacity: notify ? 1 : 0}]}>!</Text>
+        </View>
       </View>
     )
   }
@@ -104,7 +126,8 @@ export default class LectionScreen extends React.Component {
   }
 
   render() {
-    const {title, description, image, content, events} = this.params;
+    const {title, description, image, content, events, data} = this.params;
+    const started = data ? true : false;
 
     return (
       <ScrollView
@@ -129,8 +152,8 @@ export default class LectionScreen extends React.Component {
           {events && events.map(this.renderEvent)}
         </View>
 
-        <TouchableOpacity style={[styles.button, {backgroundColor: Colors.Active, height: 50, marginTop: 24, marginHorizontal: 16}]} onPress={this.startLection} activeOpacity={0.8}>
-          <Text style={[styles.buttonText, {color: Colors.White, fontSize: 17, ...Fonts.semibold}]}>{translate("Start")}</Text>
+        <TouchableOpacity style={[styles.button, {backgroundColor: Colors.Active, height: 50, marginTop: 24, marginHorizontal: 16}]} onPress={started ? this.showStatistics : this.startLection} activeOpacity={0.8}>
+          <Text style={[styles.buttonText, {color: Colors.White, fontSize: 17, ...Fonts.semibold}]}>{translate(started ? "Show statistics" : "Start")}</Text>
         </TouchableOpacity>
       </ScrollView>
     )

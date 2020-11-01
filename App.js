@@ -21,6 +21,8 @@ import i18n from 'i18n-js';
 import memoize from 'lodash.memoize';
 import PursuitOfHappiness from './modules/PursuitOfHappiness';
 import LectionScreen from './screens/LectionScreen';
+import EventsScreen from './screens/EventsScreen';
+import StatisticsScreen from './screens/StatisticsScreen';
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -126,6 +128,7 @@ const JournalStack = createStack({
 
 const ToDoStack = createStack({
   ToDo: TodoScreen,
+  Events: EventsScreen,
 },
 {
   initialRouteName: 'ToDo',
@@ -151,6 +154,7 @@ const TabNavigator = createBottomTabNavigator({
 
 const LectionStack = createStack({
   Lection: LectionScreen,
+  Statistics: StatisticsScreen,
 },
 {
   initialRouteName: 'Lection',

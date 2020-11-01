@@ -42,22 +42,24 @@ export default class HomeScreen extends React.Component {
       snapshot.forEach(snap => this.lections[snap.key] = snap.val()); // for order
       this.setState({lections: Object.keys(this.lections)});
     });
+
+    PursuitOfHappiness.Database.lectionDataRef.on("value", snapshot => {
+      snapshot.forEach(snap => this.lections[snap.key].data = snap.val());
+      this.setState({lections: Object.keys(this.lections)});
+    });
   }
 
   renderLection = (id, index) => {
     const item = this.lections[id];
-    const {title, image} = item;
+    const {title, image, data} = item;
 
     return (
       <View style={{alignItems: "center", marginTop: 32, width: index % 3 == 0 ? "100%" : "50%"}} key={index}>
-        <AnimatedCircularProgress size={124} width={8} fill={50} backgroundColor={Colors.ExtraLightGray} tintColor={Colors.Light} lineCap={"round"}>
-        {
-          (fill) => (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Lection", item)} activeOpacity={0.8}>
-              <CachedImage style={profileStyles.userImage} image={image} defaultSource={require("../assets/user.png")} />
-            </TouchableOpacity>
-          )
-        }
+        <AnimatedCircularProgress size={124} width={8} fill={data ? data.progress : 0} backgroundColor={Colors.ExtraLightGray} tintColor={Colors.Light} lineCap={"round"}>
+          {(fill) => 
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Lection", {id, ...item})} activeOpacity={0.8}>
+            <CachedImage style={profileStyles.userImage} image={image} defaultSource={require("../assets/user.png")} />
+          </TouchableOpacity>}
         </AnimatedCircularProgress>
 
         <Text style={[styles.headlineCenter, {marginTop: 8}]}>{title}</Text>

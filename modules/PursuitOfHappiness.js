@@ -1,5 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+var PushNotification = require("react-native-push-notification");
+import moment from 'moment';
 
 database().setPersistenceEnabled(true);
 database().setPersistenceCacheSizeBytes(20000000); //20MB
@@ -16,7 +19,8 @@ export class Database {
       this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
       this.dailyEventsRef = database().ref("dailyEvents").child(this.user.uid);
       this.weeklyEventsRef = database().ref("weeklyEvents").child(this.user.uid);
-      this.lectionData = database().ref("lectionData").child(this.user.uid);
+      this.lectionDataRef = database().ref("lectionData").child(this.user.uid);
+      this.eventDataRef = database().ref("eventData").child(this.user.uid);
 
       this.lectionsRef = database().ref("lections");
     }
@@ -31,7 +35,8 @@ export class Database {
         this.overallTodoRef = database().ref("overallTodo").child(this.user.uid);
         this.dailyEventsRef = database().ref("dailyEvents").child(this.user.uid);
         this.weeklyEventsRef = database().ref("weeklyEvents").child(this.user.uid);
-        this.lectionData = database().ref("lectionData").child(this.user.uid);
+        this.lectionDataRef = database().ref("lectionData").child(this.user.uid);
+        this.eventDataRef = database().ref("eventData").child(this.user.uid);
         
         this.lectionsRef = database().ref("lections");
       }
@@ -39,9 +44,34 @@ export class Database {
   }
 }
 
+export class Notifications {
+
+  constructor() {
+    PushNotificationIOS.getScheduledLocalNotifications(events => {
+      console.log(events);
+    })
+  }
+
+  addSchedule = (id, message, time, repeatType) => {
+    var date = time ? moment(time, "hh:mm") : Date.now();
+    PushNotification.localNotificationSchedule({
+      id,
+      message,
+      date: new Date(date),
+      allowWhileIdle: true,
+      repeatType,
+    });
+  }
+
+  removeSchedule = id => {
+    PushNotification.cancelLocalNotifications({id});
+  }
+}
+
 export class PursuitOfHappiness {
   constructor() {
     this.Database = new Database(this);
+    this.Notifications = new Notifications(this);
   }
 }
 
