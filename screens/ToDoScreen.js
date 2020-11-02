@@ -150,6 +150,10 @@ export default class ToDoScreen extends React.Component {
           },
           {
             actionKey: "1",
+            actionTitle: translate("Edit"),
+          },
+          {
+            actionKey: "2",
             actionTitle: translate("Remove"),
             menuAttributes: ["destructive"],
           },
@@ -160,6 +164,8 @@ export default class ToDoScreen extends React.Component {
         if(key == "0") {
           this.setDailyItemDone(id, day, item, !done);
         } else if(key == "1") {
+          this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item)});
+        } else if(key == "2") {
           this.removeDailyItem(id, day, item);
         }
       }}>

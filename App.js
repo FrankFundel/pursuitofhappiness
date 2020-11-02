@@ -23,6 +23,7 @@ import PursuitOfHappiness from './modules/PursuitOfHappiness';
 import LectionScreen from './screens/LectionScreen';
 import EventsScreen from './screens/EventsScreen';
 import StatisticsScreen from './screens/StatisticsScreen';
+import EditItemScreen from './screens/EditItemScreen';
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -161,9 +162,18 @@ const LectionStack = createStack({
   defaultNavigationOptions,
 });
 
+const EditItemStack = createStack({
+  EditItem: EditItemScreen,
+},
+{
+  initialRouteName: 'EditItem',
+  defaultNavigationOptions,
+});
+
 const MainWrapperStack = createStack({
   Main: TabNavigator,
   LectionStack,
+  EditItemStack,
 }, {
   initialRouteName: "Main",
   mode: "modal",

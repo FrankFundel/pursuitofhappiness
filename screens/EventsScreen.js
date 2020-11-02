@@ -32,7 +32,7 @@ export default class EventsScreen extends React.Component {
       this.dailyEvents = snapshot.val() || {};
       this.setState({dailyEvents: Object.keys(this.dailyEvents)});
     });
-    
+
     this.weeklyEventsListener = PursuitOfHappiness.Database.weeklyEventsRef.on("value", snapshot => {
       this.weeklyEvents = snapshot.val() || {};
       this.setState({weeklyEvents: Object.keys(this.weeklyEvents)});

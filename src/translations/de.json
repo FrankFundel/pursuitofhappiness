@@ -54,5 +54,8 @@
   "Lection": "Lektion",
   "Events": "Events",
   "Start": "Start",
-  "Show statistics": "Statistiken anzeigen"
+  "Show statistics": "Statistiken anzeigen",
+  "Started at": "Gestartet am",
+  "Progress": "Fortschritt",
+  "Edit": "Bearbeiten"
 }
