@@ -54,7 +54,9 @@ export default class EditItemScreen extends React.Component {
   }
 
   onChange = (event, date) => {
-    this.setState({time: date});
+    if(date != undefined) {
+      this.setState({time: date});
+    }
   }
 
   toggleDone = () => {

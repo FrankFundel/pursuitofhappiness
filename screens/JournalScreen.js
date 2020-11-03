@@ -7,8 +7,8 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
-import { ContextMenuView } from "react-native-ios-context-menu";
 import LottieView from 'lottie-react-native';
+import ContextMenuView from '../components/ContextMenuView';
 
 const CW = moment().week();
 
@@ -60,19 +60,14 @@ export default class JournalScreen extends React.Component {
     if(text) {
       return <ContextMenuView
       key={item}
-      menuConfig={{
-        menuTitle: '',
-        menuItems: [
-          {
-            actionKey: "0",
-            actionTitle: translate("Remove"),
-            menuAttributes: ['destructive'],
-          },
-        ]}
-      }
-      onPressMenuItem={({nativeEvent}) => {
-        var key = nativeEvent.actionKey;
-        if(key == "0") {
+      options={[
+        {
+          title: translate("Remove"),
+          destructive: true,
+        },
+      ]}
+      onPress={index => {
+        if(index == 0) {
           this.removeContent(id, index);
         }
       }}>

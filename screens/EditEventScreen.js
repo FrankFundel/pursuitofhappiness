@@ -87,7 +87,9 @@ export default class EditEventScreen extends React.Component {
   }
 
   onChange = (event, date) => {
-    this.setState({time: date});
+    if(date != undefined) {
+      this.setState({time: date});
+    }
   }
 
   render() {

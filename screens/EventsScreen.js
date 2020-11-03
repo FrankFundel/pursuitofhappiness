@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, TextInput } from 'react-native';
-import { styles, actionStyles, Colors, profileStyles, Fonts, journalStyle } from '../styles';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { styles, Colors, journalStyle } from '../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ContextMenuView } from "react-native-ios-context-menu";
 
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
 import {translate} from "../App";
+import ContextMenuView from '../components/ContextMenuView';
 
 export default class EventsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -72,25 +72,19 @@ export default class EventsScreen extends React.Component {
 
     return <ContextMenuView
       key={id}
-      menuConfig={{
-        menuTitle: '',
-        menuItems: [
-          {
-            actionKey: "0",
-            actionTitle: translate("Edit"),
-          },
-          {
-            actionKey: "1",
-            actionTitle: translate("Remove"),
-            menuAttributes: ["destructive"],
-          },
-        ]
-      }}
-      onPressMenuItem={({nativeEvent}) => {
-        var key = nativeEvent.actionKey;
-        if(key == "0") {
+      options={[
+        {
+          title: translate("Edit"),
+        },
+        {
+          title: translate("Remove"),
+          destructive: true,
+        },
+      ]}
+      onPress={index => {
+        if(index == 0) {
           this.props.navigation.navigate("EditEvent", {eventRef: PursuitOfHappiness.Database.dailyEventsRef.child(id)});
-        } else if(key == "1") {
+        } else if(index == 1) {
           this.removeDailyEvent(id);
         }
       }}>
@@ -114,25 +108,19 @@ export default class EventsScreen extends React.Component {
 
     return <ContextMenuView
     key={id}
-    menuConfig={{
-      menuTitle: '',
-      menuItems: [
-        {
-          actionKey: "0",
-          actionTitle: translate("Edit"),
-        },
-        {
-          actionKey: "1",
-          actionTitle: translate("Remove"),
-          menuAttributes: ["destructive"],
-        },
-      ]
-    }}
-    onPressMenuItem={({nativeEvent}) => {
-      var key = nativeEvent.actionKey;
-      if(key == "0") {
+    options={[
+      {
+        title: translate("Edit"),
+      },
+      {
+        title: translate("Remove"),
+        destructive: true,
+      },
+    ]}
+    onPress={index => {
+      if(index == 0) {
         this.props.navigation.navigate("EditEvent", {eventRef: PursuitOfHappiness.Database.weeklyEventsRef.child(id)});
-      } else if(key == "1") {
+      } else if(index == 1) {
         this.removeWeeklyEvent(id);
       }
     }}>

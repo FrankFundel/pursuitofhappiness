@@ -7,9 +7,9 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Section from '../components/Section';
 import {translate} from "../App";
 import moment from 'moment';
-import { ContextMenuView } from "react-native-ios-context-menu";
 import { TabView, TabBar } from 'react-native-tab-view';
 import ListItem from '../components/ListItem';
+import ContextMenuView from '../components/ContextMenuView';
 
 const CW = moment().week();
 const WEEK_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -142,31 +142,24 @@ export default class ToDoScreen extends React.Component {
 
       return <ContextMenuView
       key={item}
-      menuConfig={{
-        menuTitle: '',
-        menuItems: [
-          {
-            actionKey: "0",
-            actionTitle: translate("Done"),
-          },
-          {
-            actionKey: "1",
-            actionTitle: translate("Edit"),
-          },
-          {
-            actionKey: "2",
-            actionTitle: translate("Remove"),
-            menuAttributes: ["destructive"],
-          },
-        ]
-      }}
-      onPressMenuItem={({nativeEvent}) => {
-        var key = nativeEvent.actionKey;
-        if(key == "0") {
+      options={[
+        {
+          title: translate("Done"),
+        },
+        {
+          title: translate("Edit"),
+        },
+        {
+          title: translate("Remove"),
+          destructive: true,
+        },
+      ]}
+      onPress={index => {
+        if(index == 0) {
           this.setDailyItemDone(id, day, item, !done);
-        } else if(key == "1") {
+        } else if(index == 1) {
           this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item)});
-        } else if(key == "2") {
+        } else if(index == 2) {
           this.removeDailyItem(id, day, item);
         }
       }}>
@@ -183,31 +176,24 @@ export default class ToDoScreen extends React.Component {
 
       return <ContextMenuView 
       key={item}
-      menuConfig={{
-        menuTitle: '',
-        menuItems: [
-          {
-            actionKey: "0",
-            actionTitle: translate("Done"),
-          },
-          {
-            actionKey: "1",
-            actionTitle: translate("Edit"),
-          },
-          {
-            actionKey: "2",
-            actionTitle: translate("Remove"),
-            menuAttributes: ['destructive'],
-          },
-        ]}
-      }
-      onPressMenuItem={({nativeEvent}) => {
-        var key = nativeEvent.actionKey;
-        if(key == "0") {
+      options={[
+        {
+          title: translate("Done"),
+        },
+        {
+          title: translate("Edit"),
+        },
+        {
+          title: translate("Remove"),
+          destructive: true,
+        },
+      ]}
+      onPress={index => {
+        if(index == 0) {
           this.setWeeklyItemDone(id, item, !done);
-        } else if(key == "1") {
+        } else if(index == 1) {
           this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.weeklyEventsRef.child(id).child(item)});
-        } else if(key == "2") {
+        } else if(index == 2) {
           this.removeWeeklyItem(id, item);
         }
       }}>
@@ -328,31 +314,24 @@ export default class ToDoScreen extends React.Component {
     return (
       <ContextMenuView 
       key={item}
-      menuConfig={{
-        menuTitle: '',
-        menuItems: [
-          {
-            actionKey: "0",
-            actionTitle: translate("Done"),
-          },
-          {
-            actionKey: "1",
-            actionTitle: translate("Edit"),
-          },
-          {
-            actionKey: "2",
-            actionTitle: translate("Remove"),
-            menuAttributes: ['destructive'],
-          },
-        ]}
-      }
-      onPressMenuItem={({nativeEvent}) => {
-        var key = nativeEvent.actionKey;
-        if(key == "0") {
+      options={[
+        {
+          title: translate("Done"),
+        },
+        {
+          title: translate("Edit"),
+        },
+        {
+          title: translate("Remove"),
+          destructive: true,
+        },
+      ]}
+      onPress={index => {
+        if(index == 0) {
           this.setOverallItemDone(item, !done);
-        } else if(key == "1") {
+        } else if(index == 1) {
           this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.overallTodoRef.child(item)});
-        } else if(key == "2") {
+        } else if(index == 2) {
           this.removeOverallItem(item);
         }
       }}>
