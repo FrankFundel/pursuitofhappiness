@@ -39,7 +39,7 @@ export default class EditItemScreen extends React.Component {
     this.params.itemRef.once("value", snapshot => {
       const {text, time, done} = snapshot.val();
       this.initDone = done;
-      this.setState({text, time: moment(time, "HH:mm").toDate(), done});
+      this.setState({text, time: time ? moment(time, "HH:mm").toDate() : new Date(), done});
 
       this.props.navigation.setParams({
         handleSave: this.handleSave.bind(this),

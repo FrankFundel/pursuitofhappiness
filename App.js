@@ -24,6 +24,7 @@ import LectionScreen from './screens/LectionScreen';
 import EventsScreen from './screens/EventsScreen';
 import StatisticsScreen from './screens/StatisticsScreen';
 import EditItemScreen from './screens/EditItemScreen';
+import EditEventScreen from './screens/EditEventScreen';
 
 const translationGetters = {
   en: () => require('./src/translations/en.json'),
@@ -170,10 +171,19 @@ const EditItemStack = createStack({
   defaultNavigationOptions,
 });
 
+const EditEventStack = createStack({
+  EditEvent: EditEventScreen,
+},
+{
+  initialRouteName: 'EditEvent',
+  defaultNavigationOptions,
+});
+
 const MainWrapperStack = createStack({
   Main: TabNavigator,
   LectionStack,
   EditItemStack,
+  EditEventStack,
 }, {
   initialRouteName: "Main",
   mode: "modal",

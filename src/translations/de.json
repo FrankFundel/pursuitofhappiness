@@ -53,10 +53,13 @@
   "I want to do": "Was ich tun will",
   "Lection": "Lektion",
   "Events": "Events",
+  "Recurring Events": "Wiederkehrende Events",
   "Start": "Start",
   "Show statistics": "Statistiken anzeigen",
   "Started at": "Gestartet am",
   "Progress": "Fortschritt",
   "Edit": "Bearbeiten",
-  "Wann": "Wann"
+  "When": "Wann",
+  "Add": "Hinzufügen",
+  "Notify": "Melden"
 }

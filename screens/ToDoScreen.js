@@ -205,7 +205,7 @@ export default class ToDoScreen extends React.Component {
         if(key == "0") {
           this.setWeeklyItemDone(id, item, !done);
         } else if(key == "1") {
-          this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item)});
+          this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.weeklyEventsRef.child(id).child(item)});
         } else if(key == "2") {
           this.removeWeeklyItem(id, item);
         }
@@ -350,7 +350,7 @@ export default class ToDoScreen extends React.Component {
         if(key == "0") {
           this.setOverallItemDone(item, !done);
         } else if(key == "1") {
-          this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item)});
+          this.props.navigation.navigate("EditItem", {itemRef: PursuitOfHappiness.Database.overallTodoRef.child(item)});
         } else if(key == "2") {
           this.removeOverallItem(item);
         }

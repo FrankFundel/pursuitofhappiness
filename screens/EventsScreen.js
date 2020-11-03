@@ -12,7 +12,12 @@ export default class EventsScreen extends React.Component {
     const {params = {}} = navigation.state;
 
     return {
-      title: 'Events',
+      title: 'Recurring Events',
+      headerRight: () => (
+        <TouchableOpacity style={styles.headerButton} onPress={() => params.addEvent()} activeOpacity={0.8}>
+          <Text style={[styles.headerButtonText, {color: Colors.Normal}]}>{translate("Add")}</Text>
+        </TouchableOpacity>
+      ),
     }
   };
   
@@ -28,6 +33,10 @@ export default class EventsScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      addEvent: this.addEvent.bind(this),
+    });
+
     this.dailyEventsListener = PursuitOfHappiness.Database.dailyEventsRef.on("value", snapshot => {
       this.dailyEvents = snapshot.val() || {};
       this.setState({dailyEvents: Object.keys(this.dailyEvents)});
@@ -42,6 +51,10 @@ export default class EventsScreen extends React.Component {
   componentWillUnmount() {
     PursuitOfHappiness.Database.dailyEventsRef.off("value", this.dailyEventsListener);
     PursuitOfHappiness.Database.weeklyEventsRef.off("value", this.weeklyEventsListener);
+  }
+
+  addEvent = () => {
+    console.log("Add event");
   }
 
   removeDailyEvent = id => {
@@ -64,6 +77,10 @@ export default class EventsScreen extends React.Component {
         menuItems: [
           {
             actionKey: "0",
+            actionTitle: translate("Edit"),
+          },
+          {
+            actionKey: "1",
             actionTitle: translate("Remove"),
             menuAttributes: ["destructive"],
           },
@@ -72,6 +89,8 @@ export default class EventsScreen extends React.Component {
       onPressMenuItem={({nativeEvent}) => {
         var key = nativeEvent.actionKey;
         if(key == "0") {
+          this.props.navigation.navigate("EditEvent", {eventRef: PursuitOfHappiness.Database.dailyEventsRef.child(id)});
+        } else if(key == "1") {
           this.removeDailyEvent(id);
         }
       }}>
@@ -100,6 +119,10 @@ export default class EventsScreen extends React.Component {
       menuItems: [
         {
           actionKey: "0",
+          actionTitle: translate("Edit"),
+        },
+        {
+          actionKey: "1",
           actionTitle: translate("Remove"),
           menuAttributes: ["destructive"],
         },
@@ -108,6 +131,8 @@ export default class EventsScreen extends React.Component {
     onPressMenuItem={({nativeEvent}) => {
       var key = nativeEvent.actionKey;
       if(key == "0") {
+        this.props.navigation.navigate("EditEvent", {eventRef: PursuitOfHappiness.Database.weeklyEventsRef.child(id)});
+      } else if(key == "1") {
         this.removeWeeklyEvent(id);
       }
     }}>

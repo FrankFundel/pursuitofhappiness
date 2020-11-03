@@ -53,10 +53,13 @@
   "I want to do": "I want to do",
   "Lection": "Lection",
   "Events": "Events",
+  "Recurring Events": "Recurring Events",
   "Start": "Start",
   "Show statistics": "Show statistics",
   "Started at": "Started at",
   "Progress": "Progress",
   "Edit": "Edit",
-  "When": "When"
+  "When": "When",
+  "Add": "Add",
+  "Notify": "Notify"
 }

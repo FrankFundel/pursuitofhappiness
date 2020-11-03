@@ -147,7 +147,7 @@ export default class LectionScreen extends React.Component {
         </View>
 
         <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
-          <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("Events")}</Text>
+          <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("Recurring Events")}</Text>
 
           {events && events.map(this.renderEvent)}
         </View>
