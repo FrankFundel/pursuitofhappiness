@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, ScrollView, TouchableOpacity, Text } from 'react-native';
-import { Colors, Fonts, journalStyle, playerStyles, startStyles, styles } from '../styles';
+import { StyleSheet, View, Dimensions, ScrollView, Text, Platform } from 'react-native';
+import { Colors, Fonts, styles } from '../styles';
 import {translate} from "../App";
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
+import SegmentedControl from '@react-native-community/segmented-control';
 import { LineChart } from "react-native-chart-kit";
 import moment from 'moment';
 
@@ -31,6 +32,7 @@ export default class StatisticsScreen extends React.Component {
       progress: 0,
       
       selectedEvent: null,
+      eventIndex: 0
     };
 
     this.params = this.props.navigation.state.params;
@@ -86,21 +88,9 @@ export default class StatisticsScreen extends React.Component {
     };
   }
 
-  renderEvent = id => {
-    const {title} = this.events[id];
-    const selected = this.state.selectedEvent == id;
-
-    return (
-      <TouchableOpacity style={{height: 32, marginTop: 8, backgroundColor: selected ? "rgba(100,100,100,0.3)" : "rgba(100,100,100,0.1)", borderRadius: 9.5, alignItems: "center", justifyContent: "center", alignSelf: "flex-start", marginRight: 8}} activeOpacity={0.8} onPress={() => {
-        this.setState({selectedEvent: id});
-      }} key={id}>
-        <Text style={[playerStyles.connectText, {color: Colors.Black}]}>{title}</Text>
-      </TouchableOpacity>
-    )
-  }
-
   render() {
-    const {events, startDate, progress, selectedEvent} = this.state;
+    const {events, startDate, progress, selectedEvent, eventIndex} = this.state;
+    const eventValues = events.map(id => this.events[id].title);
 
     return (
       <ScrollView
@@ -120,7 +110,31 @@ export default class StatisticsScreen extends React.Component {
         </View>
 
         <View style={{flexDirection: "row", flexWrap: "wrap", margin: 12}}>
-          {events.map(this.renderEvent)}
+          {Platform.select({
+              android: 
+              <SegmentedControl
+                style={{width: 220}}
+                backgroundColor={Colors.ExtraDarkGray}
+                textColor={Colors.White}
+                tintColor={Colors.DarkGray}
+                values={eventValues}
+                selectedIndex={eventIndex}
+                onChange={event => {
+                  const eventIndex = event.nativeEvent.selectedSegmentIndex;
+                  this.setState({eventIndex, selectedEvent: events[eventIndex]});
+                }}
+              />,
+              ios:
+              <SegmentedControl
+                style={{width: 220}}
+                values={eventValues}
+                selectedIndex={eventIndex}
+                onChange={event => {
+                  const eventIndex = event.nativeEvent.selectedSegmentIndex;
+                  this.setState({eventIndex, selectedEvent: events[eventIndex]});
+                }}
+              />
+            })}
         </View>
 
         {this.eventData[selectedEvent] && <LineChart

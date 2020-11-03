@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ScrollView, Switch } from 'react-native';
-import { Colors, Fonts, journalStyle, startStyles, styles } from '../styles';
+import { StyleSheet, View, TouchableOpacity, Text, Platform, TextInput, ScrollView, Switch } from 'react-native';
+import { Colors, Fonts, startStyles, styles } from '../styles';
 import {translate} from "../App";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SegmentedControl from '@react-native-community/segmented-control';
 import moment from 'moment';
+import PursuitOfHappiness from '../modules/PursuitOfHappiness';
 
 const SCHEDULES = {
   0: "daily",
@@ -34,9 +35,10 @@ export default class EditEventScreen extends React.Component {
     this.params = this.props.navigation.state.params;
   
     this.state = {
-      text: "",
+      title: "",
       time: new Date(),
-      done: false,
+      scheduleIndex: 0,
+      notify: false,
     };
   }
 
@@ -62,10 +64,25 @@ export default class EditEventScreen extends React.Component {
   handleSave = () => {
     const {title, scheduleIndex, time, notify} = this.state;
     const schedule = SCHEDULES[scheduleIndex];
+    var ref = this.params.eventRef;
+
     if(this.params.eventRef) {
-      this.params.eventRef.update({title, time: moment(time).format("HH:mm"), schedule, notify});
+      ref.update({title, time: moment(time).format("HH:mm"), notify});
     } else {
-      this.params.eventRef.set({title, time: moment(time).format("HH:mm"), schedule, notify});
+      if(schedule == "daily") {
+        ref = PursuitOfHappiness.Database.dailyEventsRef.push({title, time: moment(time).format("HH:mm"), schedule, notify});
+      } else if(schedule == "weekly") {
+        ref = PursuitOfHappiness.Database.weeklyEventsRef.push({title, time: moment(time).format("HH:mm"), schedule, notify});
+      }
+    }
+
+    PursuitOfHappiness.Notifications.removeSchedule(ref.key);
+    if(notify) {
+      if(schedule == "daily") {
+        PursuitOfHappiness.Notifications.addSchedule(ref.key, title, time, "day");
+      } else if(schedule == "weekly") {
+        PursuitOfHappiness.Notifications.addSchedule(ref.key, title, time, "week");
+      }
     }
   }
 
@@ -84,6 +101,8 @@ export default class EditEventScreen extends React.Component {
       style={{backgroundColor: Colors.White}}>
         
         <View style={{paddingHorizontal: 16}}>
+          <Text style={[startStyles.infoText, {textAlign: "center", marginTop: 16}]}>{translate("Changes will apply in the following week")}</Text>
+
           <TextInput
             style={[styles.textInput, {borderColor: title ? Colors.Active : Colors.LightGray}]}
             placeholder={translate("What do you want to do?")}
@@ -103,7 +122,7 @@ export default class EditEventScreen extends React.Component {
             />
           </View>
           
-          <View style={{marginTop: 24, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          {!this.params.eventRef && <View style={{marginTop: 24, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
             <Text style={settingsStyles.settingTitle}>{translate("Schedule")}</Text>
             {Platform.select({
               android: 
@@ -128,7 +147,7 @@ export default class EditEventScreen extends React.Component {
                 }}
               />
             })}
-          </View>
+          </View>}
         </View>
 
         <Text style={[styles.headline, {marginTop: 24}]}>{translate("When")}</Text>

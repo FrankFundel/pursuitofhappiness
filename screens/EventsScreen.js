@@ -54,7 +54,7 @@ export default class EventsScreen extends React.Component {
   }
 
   addEvent = () => {
-    console.log("Add event");
+    this.props.navigation.navigate("EditEvent", {});
   }
 
   removeDailyEvent = id => {
