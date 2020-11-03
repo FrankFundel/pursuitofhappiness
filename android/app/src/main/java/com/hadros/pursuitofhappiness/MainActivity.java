@@ -1,4 +1,4 @@
-package com.pursuitofhappiness;
+package com.hadros.pursuitofhappiness;
 
 import com.facebook.react.ReactActivity;
 

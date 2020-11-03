@@ -47,9 +47,9 @@ export class Database {
 export class Notifications {
 
   constructor() {
-    PushNotificationIOS.getScheduledLocalNotifications(events => {
+    /*PushNotificationIOS.getScheduledLocalNotifications(events => {
       console.log(events);
-    })
+    })*/
   }
 
   addSchedule = (id, message, time, repeatType) => {

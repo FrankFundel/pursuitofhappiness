@@ -67,6 +67,7 @@ export default class ToDoScreen extends React.Component {
   
   setDailyItemDone = (id, day, item, done) => {
     const {eventId, dataId} = this.dailyWeeks[id][day][item];
+    console.log(this.dailyWeeks[id][day][item]);
     if(done) {
       const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
       PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done, dataId: ref.key});
