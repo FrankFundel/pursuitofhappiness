@@ -41,7 +41,7 @@ export default class LectionScreen extends React.Component {
     var eventIds = {};
 
     for(let event of this.params.events) {
-      if(event.schedule == "daily") {
+      if(event.schedule == "daily") { // every day or specific day(s) per week
         const ref = PursuitOfHappiness.Database.dailyEventsRef.push(event);
         eventIds[ref.key] = true;
 
@@ -50,12 +50,14 @@ export default class LectionScreen extends React.Component {
             done: false,
             text: event.title,
             time: event.time,
+            progress: event.progress,
             eventId: ref.key,
+            lectionId: this.params.id,
           });
-
-          if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "day");
         }
-      } else if(event.schedule == "weekly") {
+        
+        if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "day");
+      } else if(event.schedule == "weekly") { // sometimes every week
         const ref = PursuitOfHappiness.Database.weeklyEventsRef.push(event);
         eventIds[ref.key] = true;
 
@@ -63,12 +65,12 @@ export default class LectionScreen extends React.Component {
           done: false,
           text: event.title,
           time: event.time,
+          progress: event.progress,
           eventId: ref.key,
+          lectionId: this.params.id,
         });
         
         if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "week");
-      } else {
-        // TODO: date
       }
     }
     

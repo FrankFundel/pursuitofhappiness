@@ -42,6 +42,15 @@ export class Database {
       }
     })
   }
+
+  addProgress = async (lectionId, amount) => {
+    const progress = (await this.lectionDataRef.child(lectionId).child("progress").once("value")).val();
+    this.lectionDataRef.child(lectionId).update({progress: progress + amount});
+  }
+  subProgress = async (lectionId, amount) => {
+    const progress = (await this.lectionDataRef.child(lectionId).child("progress").once("value")).val();
+    this.lectionDataRef.child(lectionId).update({progress: progress - amount});
+  }
 }
 
 export class Notifications {

@@ -109,7 +109,7 @@ export default class StatisticsScreen extends React.Component {
           <Text style={styles.text}>{progress + "%"}</Text>
         </View>
 
-        <View style={{flexDirection: "row", flexWrap: "wrap", margin: 12}}>
+        <View style={{flexDirection: "row", flexWrap: "wrap", margin: 12, justifyContent: "center"}}>
           {Platform.select({
               android: 
               <SegmentedControl

@@ -66,13 +66,18 @@ export default class ToDoScreen extends React.Component {
   }
   
   setDailyItemDone = (id, day, item, done) => {
-    const {eventId, dataId} = this.dailyWeeks[id][day][item];
-    console.log(this.dailyWeeks[id][day][item]);
-    if(done) {
-      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
-      PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done, dataId: ref.key});
+    const {eventId, dataId, lectionId} = this.dailyWeeks[id][day][item];
+    if(eventId) {
+      if(done) {
+        const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+        PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done, dataId: ref.key});
+        if(lectionId) PursuitOfHappiness.Database.addProgress(lectionId, 5);
+      } else {
+        PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+        PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done, dataId: null});
+        if(lectionId) PursuitOfHappiness.Database.subProgress(lectionId, 5);
+      }
     } else {
-      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
       PursuitOfHappiness.Database.dailyTodoRef.child(id).child(day.toString()).child(item).update({done});
     }
   }
@@ -91,12 +96,18 @@ export default class ToDoScreen extends React.Component {
   }
   
   setWeeklyItemDone = (id, item, done) => {
-    const {eventId, dataId} = this.weeklyWeeks[id][item];
-    if(done) {
-      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
-      PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done, dataId: ref.key});
+    const {eventId, dataId, lectionId} = this.weeklyWeeks[id][item];
+    if(eventId) {
+      if(done) {
+        const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+        PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done, dataId: ref.key});
+        if(lectionId) PursuitOfHappiness.Database.addProgress(lectionId, 5);
+      } else {
+        PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+        PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done, dataId: null});
+        if(lectionId) PursuitOfHappiness.Database.subProgress(lectionId, 5);
+      }
     } else {
-      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
       PursuitOfHappiness.Database.weeklyTodoRef.child(id).child(item).update({done});
     }
   }
@@ -115,12 +126,18 @@ export default class ToDoScreen extends React.Component {
   }
   
   setOverallItemDone = (item, done) => {
-    const {eventId, dataId} = this.overall[item];
-    if(done) {
-      const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
-      PursuitOfHappiness.Database.overallTodoRef.child(item).update({done, dataId: ref.key});
+    const {eventId, dataId, lectionId} = this.overall[item];
+    if(eventId) {
+      if(done) {
+        const ref = PursuitOfHappiness.Database.eventDataRef.child(eventId).push({date: Date.now()});
+        PursuitOfHappiness.Database.overallTodoRef.child(item).update({done, dataId: ref.key});
+        if(lectionId) PursuitOfHappiness.Database.addProgress(lectionId, 5);
+      } else {
+        PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
+        PursuitOfHappiness.Database.overallTodoRef.child(item).update({done, dataId: null});
+        if(lectionId) PursuitOfHappiness.Database.subProgress(lectionId, 5);
+      }
     } else {
-      PursuitOfHappiness.Database.eventDataRef.child(eventId).child(dataId).remove();
       PursuitOfHappiness.Database.overallTodoRef.child(item).update({done});
     }
   }
