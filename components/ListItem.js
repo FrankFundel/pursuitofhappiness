@@ -39,7 +39,7 @@ export default class ListItem extends React.PureComponent {
 
         <Text style={[styles.text, {fontSize: 16, flex: 1}]}>{title}</Text>
 
-        <Text style={[styles.text, {fontSize: 16, flex: 1, color: Colors.Active, textAlign: "right"}]}>{time}</Text>
+        {time && <Text style={[styles.text, {fontSize: 16, color: Colors.Active, textAlign: "right"}]}>{time}</Text>}
       </TouchableOpacity>
     );
   };

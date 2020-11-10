@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
 import moment from 'moment';
 
-const CW = moment().week();
+const CW = moment().isoWeek();
 
 export default class LectionScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,6 +42,7 @@ export default class LectionScreen extends React.Component {
 
     for(let event of this.params.events) {
       if(event.schedule == "daily") { // every day or specific day(s) per week
+        event.lectionId = this.params.id;
         const ref = PursuitOfHappiness.Database.dailyEventsRef.push(event);
         eventIds[ref.key] = true;
 
@@ -51,13 +52,14 @@ export default class LectionScreen extends React.Component {
             text: event.title,
             time: event.time,
             progress: event.progress,
+            lectionId: event.lectionId,
             eventId: ref.key,
-            lectionId: this.params.id,
           });
         }
         
         if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "day");
       } else if(event.schedule == "weekly") { // sometimes every week
+        event.lectionId = this.params.id;
         const ref = PursuitOfHappiness.Database.weeklyEventsRef.push(event);
         eventIds[ref.key] = true;
 
@@ -66,8 +68,8 @@ export default class LectionScreen extends React.Component {
           text: event.title,
           time: event.time,
           progress: event.progress,
+          lectionId: event.lectionId,
           eventId: ref.key,
-          lectionId: this.params.id,
         });
         
         if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "week");

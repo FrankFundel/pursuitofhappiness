@@ -10,7 +10,7 @@ import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import ContextMenuView from '../components/ContextMenuView';
 
-const CW = moment().week();
+const CW = moment().isoWeek();
 
 export default class JournalScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {

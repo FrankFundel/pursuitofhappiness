@@ -11,7 +11,7 @@ import { TabView, TabBar } from 'react-native-tab-view';
 import ListItem from '../components/ListItem';
 import ContextMenuView from '../components/ContextMenuView';
 
-const CW = moment().week();
+const CW = moment().isoWeek();
 const WEEK_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 export default class ToDoScreen extends React.Component {
@@ -41,7 +41,7 @@ export default class ToDoScreen extends React.Component {
       textHeight: 48,
       dailyWeeks: [],
       activeDailySections: [0],
-      selectedDay: 0,
+      selectedDay: moment().weekday()-1,
       weeklyWeeks: [],
       activeWeeklySections: [0],
       overall: [],
@@ -50,6 +50,9 @@ export default class ToDoScreen extends React.Component {
     this.dailyWeeks = {};
     this.weeklyWeeks = {};
     this.overall = {};
+
+    this.scroll = React.createRef();
+    this.selectedDayRef = React.createRef();
   }
 
   addDailyItem = (id, day, text) => {
@@ -226,7 +229,10 @@ export default class ToDoScreen extends React.Component {
     const {selectedDay} = this.state;
     const key = id + day;
 
-    return <TouchableOpacity style={journalStyle.day} activeOpacity={1} onPress={() => this.setState({selectedDay: day})} key={key}>
+    return <TouchableOpacity ref={btn => {
+        if(id.endsWith(CW) && day == moment().weekday()-1) this.selectedDayRef = btn;
+      }}
+      style={journalStyle.day} activeOpacity={1} onPress={() => this.setState({selectedDay: day})} key={key}>
       <Text style={[styles.headline, {margin: 12}]}>{translate(name)}</Text>
 
       {content && Object.keys(content).sort().map(item => this.renderDailyItem(id, day, item))}
@@ -297,6 +303,10 @@ export default class ToDoScreen extends React.Component {
       this.overall = snapshot.val() || {};
       this.setState({overall: Object.keys(this.overall).sort()});
     });
+    
+    setTimeout(() => {
+      this.scroll.scrollToFocusedInput(this.selectedDayRef);
+    }, 1000);
   }
 
   DailyRoute = () => (
@@ -404,7 +414,10 @@ export default class ToDoScreen extends React.Component {
     keyboardShouldPersistTaps='handled'
     contentInsetAdjustmentBehavior="automatic"
     contentContainerStyle={styles.scrollContainer}
-    showsVerticalScrollIndicator={false}>
+    showsVerticalScrollIndicator={false}
+    ref={ref => {
+      this.scroll = ref
+    }}>
       
       <TabView
         navigationState={{ index, routes }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ScrollView, Switch } from 'react-native';
 import { Colors, Fonts, journalStyle, startStyles, styles } from '../styles';
 import {translate} from "../App";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -32,6 +32,8 @@ export default class EditItemScreen extends React.Component {
       text: "",
       time: new Date(Date.now()),
       done: false,
+
+      hasTime: false,
     };
   }
 
@@ -39,7 +41,7 @@ export default class EditItemScreen extends React.Component {
     this.params.itemRef.once("value", snapshot => {
       const {text, time, done} = snapshot.val();
       this.initDone = done;
-      this.setState({text, time: time ? moment(time, "HH:mm").toDate() : new Date(), done});
+      this.setState({text, time: time ? moment(time, "HH:mm").toDate() : new Date(), done, hasTime: time ? true : false});
 
       this.props.navigation.setParams({
         handleSave: this.handleSave.bind(this),
@@ -49,8 +51,8 @@ export default class EditItemScreen extends React.Component {
   }
 
   handleSave = () => {
-    const {text, time, done} = this.state;
-    this.params.itemRef.update({text, time: moment(time).format("HH:mm"), done});
+    const {text, time, done, hasTime} = this.state;
+    this.params.itemRef.update({text, time: hasTime ? moment(time).format("HH:mm") : null, done});
   }
 
   onChange = (event, date) => {
@@ -70,7 +72,7 @@ export default class EditItemScreen extends React.Component {
   }
 
   render() {
-    const {text, time} = this.state;
+    const {text, time, hasTime} = this.state;
     
     return (
       <ScrollView
@@ -103,15 +105,53 @@ export default class EditItemScreen extends React.Component {
           </View>
         </View>
 
-        <Text style={[styles.headline, {marginTop: 24}]}>{translate("When")}</Text>
+        <View style={{margin: 16, marginTop: 24, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          <Text style={[styles.headline, {marginLeft: 0}]}>{translate("When")}</Text>
+          <Switch
+            trackColor={{ false: Colors.ExtraDarkGray, true: Colors.Normal }}
+            thumbColor={Colors.White}
+            ios_backgroundColor={Colors.ExtraDarkGray}
+            onValueChange={hasTime => this.setState({ hasTime })}
+            value={hasTime}
+          />
+        </View>
+
         <DateTimePicker
+          style={{opacity: hasTime ? 1 : 0.3}}
           value={time}
           mode={"time"}
           is24Hour={true}
           display="default"
           onChange={this.onChange}
+          disable
         />
       </ScrollView>
     )
   }
 }
+
+const settingsStyles = StyleSheet.create({
+  settingTitle: {
+    color: Colors.Black,
+    fontSize: 15,
+    ...Fonts.medium,
+    letterSpacing: -0.41,
+  },
+  imageButton: {
+    height: 164,
+    width: "100%",
+    borderRadius: 12,
+    alignSelf: "center",
+  },
+  image: {
+    height: 164,
+    width: "100%",
+    borderRadius: 12,
+  },
+  inputText: {
+    ...Fonts.regular,
+    lineHeight: 19,
+    fontSize: 17,
+    letterSpacing: -0.27,
+  }
+})

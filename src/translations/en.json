@@ -63,5 +63,8 @@
   "Add": "Add",
   "Notify": "Notify",
   "Changes will apply in the following week": "Changes will apply in the following week.",
-  "Schedule": "Schedule"
+  "Schedule": "Schedule",
+  "Every": "Every",
+  "Everyday": "Everyday",
+  "Never": "Never"
 }

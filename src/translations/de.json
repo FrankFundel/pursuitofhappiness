@@ -63,5 +63,8 @@
   "Add": "Hinzufügen",
   "Notify": "Melden",
   "Changes will apply in the following week": "Änderungen werden in der folgenden Woche sichtbar.",
-  "Schedule": "Zeitplan"
+  "Schedule": "Zeitplan",
+  "Every": "Jeden",
+  "Everyday": "Jeden Tag",
+  "Never": "Nie"
 }
