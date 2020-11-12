@@ -99,7 +99,7 @@ export default class EditEventScreen extends React.Component {
 
   onChange = (event, date) => {
     if(date != undefined) {
-      this.setState({time: date});
+      //this.setState({time: date});
     }
   }
 
@@ -171,9 +171,9 @@ export default class EditEventScreen extends React.Component {
               android: 
               <SegmentedControl
                 style={{width: 220}}
-                backgroundColor={Colors.ExtraDarkGray}
-                textColor={Colors.White}
-                tintColor={Colors.DarkGray}
+                backgroundColor={Colors.ExtraLightGray}
+                fontStyle={{color: Colors.Black}}
+                tintColor={Colors.White}
                 values={[translate('Daily'), translate('Weekly')]}
                 selectedIndex={scheduleIndex}
                 onChange={event => {

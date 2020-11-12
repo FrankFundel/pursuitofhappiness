@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles, Colors, Fonts, journalStyle } from '../styles';
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
@@ -103,7 +103,7 @@ export default class JournalScreen extends React.Component {
           returnKeyType="done"
           blurOnSubmit={false}
           multiline
-          onContentSizeChange={event => this.setState({ textHeight: event.nativeEvent.contentSize.height + 28 })}
+          onContentSizeChange={event => this.setState({ textHeight: Platform.select({ ios: event.nativeEvent.contentSize.height + 28, android: event.nativeEvent.contentSize.height }) })}
           onKeyPress={({nativeEvent}) => this.setState({text: nativeEvent.key === 'Enter' ? "" : nativeEvent.text})}
         />
       </View>

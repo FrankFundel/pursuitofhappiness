@@ -114,9 +114,9 @@ export default class StatisticsScreen extends React.Component {
               android: 
               <SegmentedControl
                 style={{width: 220}}
-                backgroundColor={Colors.ExtraDarkGray}
-                textColor={Colors.White}
-                tintColor={Colors.DarkGray}
+                backgroundColor={Colors.ExtraLightGray}
+                fontStyle={{color: Colors.Black}}
+                tintColor={Colors.White}
                 values={eventValues}
                 selectedIndex={eventIndex}
                 onChange={event => {

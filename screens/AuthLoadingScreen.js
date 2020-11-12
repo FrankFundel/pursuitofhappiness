@@ -12,9 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default class AuthLoadingScreen extends React.Component {
 
   componentDidMount = () => {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 100);
+    SplashScreen.hide();
 
     auth().onAuthStateChanged(async user => {
       if(user) {
