@@ -6,6 +6,7 @@ import CachedImage from '../components/CachedImage';
 import LottieView from 'lottie-react-native';
 import PursuitOfHappiness from '../modules/PursuitOfHappiness';
 import moment from 'moment';
+import YouTube from 'react-native-youtube';
 
 const CW = moment().isoWeek();
 
@@ -116,7 +117,7 @@ export default class LectionScreen extends React.Component {
   }
 
   renderContent = (item, index) => {
-    const {title, description, items} = item;
+    const {title, description, items, video} = item;
 
     return (
       <View style={{marginBottom: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}} key={index}>
@@ -125,6 +126,15 @@ export default class LectionScreen extends React.Component {
         <Text style={[lectionStyle.text, {marginHorizontal: 12, marginBottom: 12}]}>{description}</Text>
         
         {items && items.map(this.renderItem)}
+
+        {video && <YouTube
+          videoId={video}
+          onReady={e => this.setState({ isReady: true })}
+          onChangeState={e => this.setState({ status: e.state })}
+          onChangeQuality={e => this.setState({ quality: e.quality })}
+          onError={e => this.setState({ error: e.error })}
+          style={{ alignSelf: 'stretch', height: 300 }}
+        />}
       </View>
     )
   }
