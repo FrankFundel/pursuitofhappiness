@@ -3,6 +3,7 @@ import database from '@react-native-firebase/database';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 var PushNotification = require("react-native-push-notification");
 import moment from 'moment';
+import { Platform } from 'react-native';
 
 database().setPersistenceEnabled(true);
 database().setPersistenceCacheSizeBytes(20000000); //20MB
@@ -56,9 +57,11 @@ export class Database {
 export class Notifications {
 
   constructor() {
-    /*PushNotificationIOS.getScheduledLocalNotifications(events => {
-      console.log(events);
-    })*/
+    if(Platform.OS == "ios") {
+        PushNotificationIOS.getScheduledLocalNotifications(events => {
+        console.log(events);
+      });
+    }
   }
 
   addSchedule = (id, message, time, repeatType) => {

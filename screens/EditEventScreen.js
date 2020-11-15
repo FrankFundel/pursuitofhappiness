@@ -53,7 +53,7 @@ export default class EditEventScreen extends React.Component {
     if(this.params.eventRef) {
       this.params.eventRef.once("value", snapshot => {
         const {title, schedule, time, notify, allowedDays} = snapshot.val();
-        this.setState({title, schedule, time: time ? moment(time, "HH:mm").toDate() : new Date(), notify, allowedDays});
+        this.setState({title, schedule, time: time ? moment(time, "HH:mm").toDate() : new Date(), notify, allowedDays: allowedDays || {}});
 
         this.props.navigation.setParams({
           handleSave: this.handleSave.bind(this),
@@ -88,7 +88,7 @@ export default class EditEventScreen extends React.Component {
     if(notify) {
       if(schedule == "daily") {
         Object.keys(allowedDays).forEach(d => {
-          let daytime = moment(time).day(d);
+          let daytime = moment(time).day(parseInt(d)+1);
           PursuitOfHappiness.Notifications.addSchedule(ref.key, title, daytime, "day");
         });
       } else if(schedule == "weekly") {
@@ -99,7 +99,7 @@ export default class EditEventScreen extends React.Component {
 
   onChange = (event, date) => {
     if(date != undefined) {
-      //this.setState({time: date});
+      if(Platform.OS == "ios") this.setState({time: date});
     }
   }
 

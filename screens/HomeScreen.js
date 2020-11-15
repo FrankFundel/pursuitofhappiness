@@ -30,7 +30,7 @@ export default class HomeScreen extends React.Component {
     this.lections = {};
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     PursuitOfHappiness.Database.userRef.on("value", snapshot => {
       var {image, name, points, level} = snapshot.val();
       this.props.navigation.setParams({
@@ -38,10 +38,9 @@ export default class HomeScreen extends React.Component {
       });
     });
 
-    PursuitOfHappiness.Database.lectionsRef.child("en").on("value", snapshot => {
-      snapshot.forEach(snap => this.lections[snap.key] = snap.val()); // for order
-      this.setState({lections: Object.keys(this.lections)});
-    });
+    const snapshot = await PursuitOfHappiness.Database.lectionsRef.child("en").once("value");
+    snapshot.forEach(snap => this.lections[snap.key] = snap.val()); // for order
+    this.setState({lections: Object.keys(this.lections)});
 
     PursuitOfHappiness.Database.lectionDataRef.on("value", snapshot => {
       snapshot.forEach(snap => this.lections[snap.key].data = snap.val());
