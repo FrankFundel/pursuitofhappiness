@@ -41,14 +41,36 @@ export default class LectionScreen extends React.Component {
   startLection = async () => {
     var eventIds = {};
 
-    for(let event of this.params.events) {
-      if(event.schedule == "daily") { // every day or specific day(s) per week
-        event.lectionId = this.params.id;
-        const ref = PursuitOfHappiness.Database.dailyEventsRef.push(event);
-        eventIds[ref.key] = true;
+    if(this.params.events) {
+      for(let event of this.params.events) {
+        if(event.schedule == "daily") { // every day or specific day(s) per week
+          event.lectionId = this.params.id;
+          const ref = PursuitOfHappiness.Database.dailyEventsRef.push(event);
+          eventIds[ref.key] = true;
 
-        for(let d = 0; d < 7; d++) {
-          PursuitOfHappiness.Database.dailyTodoRef.child("-" + CW).child(d.toString()).push({
+          for(let d = 0; d < 7; d++) {
+            PursuitOfHappiness.Database.dailyTodoRef.child("-" + CW).child(d.toString()).push({
+              done: false,
+              text: event.title,
+              time: event.time,
+              progress: event.progress,
+              lectionId: event.lectionId,
+              eventId: ref.key,
+            });
+          }
+          
+          if(event.notify) {
+            Object.keys(event.allowedDays).forEach(d => {
+              let daytime = moment(event.time).day(parseInt(d)+1);
+              PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, daytime, "day");
+            });
+          }
+        } else if(event.schedule == "weekly") { // sometimes every week
+          event.lectionId = this.params.id;
+          const ref = PursuitOfHappiness.Database.weeklyEventsRef.push(event);
+          eventIds[ref.key] = true;
+
+          PursuitOfHappiness.Database.weeklyTodoRef.child("-" + CW).push({
             done: false,
             text: event.title,
             time: event.time,
@@ -56,24 +78,9 @@ export default class LectionScreen extends React.Component {
             lectionId: event.lectionId,
             eventId: ref.key,
           });
+          
+          if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "week");
         }
-        
-        if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "day");
-      } else if(event.schedule == "weekly") { // sometimes every week
-        event.lectionId = this.params.id;
-        const ref = PursuitOfHappiness.Database.weeklyEventsRef.push(event);
-        eventIds[ref.key] = true;
-
-        PursuitOfHappiness.Database.weeklyTodoRef.child("-" + CW).push({
-          done: false,
-          text: event.title,
-          time: event.time,
-          progress: event.progress,
-          lectionId: event.lectionId,
-          eventId: ref.key,
-        });
-        
-        if(event.notify) PursuitOfHappiness.Notifications.addSchedule(ref.key, event.title, event.time, "week");
       }
     }
     
@@ -120,7 +127,7 @@ export default class LectionScreen extends React.Component {
     const {title, description, items, video} = item;
 
     return (
-      <View style={{marginBottom: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}} key={index}>
+      <View style={{marginBottom: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10, overflow: "hidden"}} key={index}>
         <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{title}</Text>
         
         <Text style={[lectionStyle.text, {marginHorizontal: 12, marginBottom: 12}]}>{description}</Text>
@@ -133,7 +140,7 @@ export default class LectionScreen extends React.Component {
           onChangeState={e => this.setState({ status: e.state })}
           onChangeQuality={e => this.setState({ quality: e.quality })}
           onError={e => this.setState({ error: e.error })}
-          style={{ alignSelf: 'stretch', height: 300 }}
+          style={{ alignSelf: "stretch", height: 200 }}
         />}
       </View>
     )
@@ -160,11 +167,11 @@ export default class LectionScreen extends React.Component {
           {content && content.map(this.renderContent)}
         </View>
 
-        <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
+        {events && <View style={{margin: 16, backgroundColor: Colors.WhiteGray, borderRadius: 10}}>
           <Text style={[styles.headline, {fontSize: 20, margin: 12}]}>{translate("Recurring Events")}</Text>
 
-          {events && events.map(this.renderEvent)}
-        </View>
+          {events.map(this.renderEvent)}
+        </View>}
 
         <TouchableOpacity style={[styles.button, {backgroundColor: Colors.Active, height: 50, marginTop: 24, marginHorizontal: 16}]} onPress={started ? this.showStatistics : this.startLection} activeOpacity={0.8}>
           <Text style={[styles.buttonText, {color: Colors.White, fontSize: 17, ...Fonts.semibold}]}>{translate(started ? "Show statistics" : "Start")}</Text>

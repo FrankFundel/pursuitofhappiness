@@ -230,7 +230,7 @@ export default class ToDoScreen extends React.Component {
     const key = id + day;
 
     return <TouchableOpacity ref={btn => {
-        if(id.endsWith(CW) && day == moment().weekday()-1) this.selectedDayRef = btn;
+        if(id.endsWith(CW) && day == moment().isoWeekday()-1) this.selectedDayRef = btn;
       }}
       style={journalStyle.day} activeOpacity={1} onPress={() => this.setState({selectedDay: day})} key={key}>
       <Text style={[styles.headline, {margin: 12}]}>{translate(name)}</Text>
