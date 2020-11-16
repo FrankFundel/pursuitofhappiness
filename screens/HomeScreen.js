@@ -41,6 +41,11 @@ export default class HomeScreen extends React.Component {
     const snapshot = await PursuitOfHappiness.Database.lectionsRef.child("en").once("value");
     snapshot.forEach(snap => this.lections[snap.key] = snap.val()); // for order
     this.setState({lections: Object.keys(this.lections)});
+    
+    PursuitOfHappiness.Database.lectionsRef.child("en").on("value", snapshot => {
+      snapshot.forEach(snap => this.lections[snap.key] = snap.val()); // for order
+      this.setState({lections: Object.keys(this.lections)});
+    });
 
     PursuitOfHappiness.Database.lectionDataRef.on("value", snapshot => {
       snapshot.forEach(snap => this.lections[snap.key].data = snap.val());
